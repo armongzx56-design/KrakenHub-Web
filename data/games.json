@@ -3,8 +3,7 @@
     "name": "KrakenHub",
     "version": "v2.5.0",
     "description": "ศูนย์รวมสคริปต์ระดับพรีเมียม ประสิทธิภาพสูง ไม่แลค ปลอดภัย รองรับหลายแมพใน Roblox",
-    "loader": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/KrakenHub_Loader.luau\"))()",
-    "discord": "https://discord.gg/krakenhub",
+    "discord": "https://discord.gg/vvkVDYeuhn",
     "platoboost_service_id": 35734,
     "last_updated": "2026-11-05"
   },
@@ -19,7 +18,7 @@
       "icon": "🎯",
       "badge": "Hot 🔥",
       "version": "v2.4.0",
-      "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/urban-reload.luau\"))()",
+      "discord": "https://discord.gg/vvkVDYeuhn",
       "features": [
         "Silent Aim & Camlock (FOV Slider, Head/Torso)",
         "Legit & Rage Hitbox Expander",
@@ -39,7 +38,7 @@
       "icon": "⚔️",
       "badge": "Popular ⭐",
       "version": "v1.8.5",
-      "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/KrakenHub_Loader.luau\"))()",
+      "discord": "https://discord.gg/vvkVDYeuhn",
       "features": [
         "Legit Auto Farm (Exp, Level, Items)",
         "Fast Attack & Auto Weapon Swing",
@@ -59,7 +58,7 @@
       "icon": "🌊",
       "badge": "Main ⚡",
       "version": "v2.5.0",
-      "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/KrakenHub_Loader.luau\"))()",
+      "discord": "https://discord.gg/vvkVDYeuhn",
       "features": [
         "Platoboost Key System (Auto Verify & Save Key)",
         "Auto Detect Game & Load Specific Module",
@@ -78,7 +77,7 @@
       "icon": "🚗",
       "badge": "Soon ⏳",
       "version": "In Development",
-      "script": "",
+      "discord": "https://discord.gg/vvkVDYeuhn",
       "features": [
         "Troll GUI & Car Speed Boost",
         "Fly & Noclip Engine",
@@ -88,4 +87,3 @@
     }
   ]
 }
-

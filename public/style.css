@@ -923,3 +923,77 @@ body {
     }
 }
 
+
+/* Discord CTA Card Enhancement */
+.discord-cta-card {
+    border-color: rgba(88, 101, 242, 0.4) !important;
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5), 0 0 25px rgba(88, 101, 242, 0.25) !important;
+}
+
+.discord-cta-body {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 0 20px;
+}
+
+.discord-cta-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: rgba(88, 101, 242, 0.15);
+    border: 1px solid rgba(88, 101, 242, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #5865f2;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(88, 101, 242, 0.3);
+}
+
+.discord-cta-text h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f8fafc;
+    margin-bottom: 6px;
+}
+
+.discord-cta-text p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.btn-discord-main {
+    background: linear-gradient(135deg, #5865f2, #4752c4);
+    color: #fff !important;
+    box-shadow: 0 6px 20px rgba(88, 101, 242, 0.4);
+    flex: 2;
+}
+
+.btn-discord-main:hover {
+    background: linear-gradient(135deg, #4752c4, #3c45a5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(88, 101, 242, 0.6);
+}
+
+.card-btn.discord {
+    background: rgba(88, 101, 242, 0.15);
+    border: 1px solid rgba(88, 101, 242, 0.35);
+    color: #8b95f6;
+    flex: 1;
+}
+
+.card-btn.discord:hover {
+    background: #5865f2;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+}
+
+@media (max-width: 640px) {
+    .discord-cta-body {
+        flex-direction: column;
+        text-align: center;
+    }
+}

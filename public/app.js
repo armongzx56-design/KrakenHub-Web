@@ -3,6 +3,8 @@ let hubInfo = {};
 let activeFilter = 'all';
 let searchQuery = '';
 
+const DEFAULT_DISCORD = 'https://discord.gg/vvkVDYeuhn';
+
 // Toast Notification
 function showToast(message, icon = 'fa-circle-check') {
     const toast = document.getElementById('toast');
@@ -58,9 +60,6 @@ async function loadGames() {
         // Update Hub Info in UI
         if (hubInfo.version) {
             document.getElementById('hub-version').textContent = hubInfo.version;
-        }
-        if (hubInfo.loader) {
-            document.getElementById('main-script-code').textContent = hubInfo.loader;
         }
         if (hubInfo.last_updated) {
             document.getElementById('last-sync-time').textContent = `อัปเดตระบบ: ${hubInfo.last_updated}`;
@@ -120,11 +119,12 @@ function renderGames() {
         return;
     }
 
+    const discordLink = hubInfo.discord || DEFAULT_DISCORD;
+
     container.innerHTML = filtered.map(game => {
         const isOperational = game.status === 'operational';
         const statusClass = isOperational ? 'operational' : 'maintenance';
         const statusIcon = isOperational ? 'fa-circle-check' : 'fa-clock';
-        const scriptToCopy = game.script || hubInfo.loader || '';
 
         const featuresHtml = (game.features || []).map(f => `
             <li class="feature-item">
@@ -184,10 +184,10 @@ function renderGames() {
                 </div>
 
                 <div class="card-actions">
-                    <button class="card-btn copy" onclick="copyText('${scriptToCopy.replace(/'/g, "\\'")}', 'คัดลอกสคริปต์ ${game.name} เรียบร้อย!')">
-                        <i class="fa-solid fa-copy"></i>
-                        <span>คัดลอกโค้ดเกมนี้</span>
-                    </button>
+                    <a href="${discordLink}" target="_blank" class="card-btn discord">
+                        <i class="fa-brands fa-discord"></i>
+                        <span>รับสคริปต์ใน Discord</span>
+                    </a>
                     ${robloxBtn}
                 </div>
             </div>
@@ -198,15 +198,6 @@ function renderGames() {
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     loadGames();
-
-    // Copy Main Script
-    const copyMainBtn = document.getElementById('copy-main-script-btn');
-    if (copyMainBtn) {
-        copyMainBtn.addEventListener('click', () => {
-            const code = document.getElementById('main-script-code').textContent;
-            copyText(code, 'คัดลอก KrakenHub Universal Loader สำเร็จ!');
-        });
-    }
 
     // Search Input
     const searchInput = document.getElementById('search-input');
@@ -240,4 +231,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
