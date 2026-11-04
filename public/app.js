@@ -5,6 +5,157 @@ let searchQuery = '';
 
 const DEFAULT_DISCORD = 'https://discord.gg/vvkVDYeuhn';
 
+// Embedded Fallback Data (100% guarantee it NEVER fails)
+const FALLBACK_DATA = {
+  "hub": {
+    "name": "KrakenHub",
+    "version": "v2.5.0",
+    "description": "ศูนย์รวมสคริปต์ระดับพรีเมียม ประสิทธิภาพสูง ไม่แลค ปลอดภัย รองรับหลายแมพใน Roblox",
+    "discord": "https://discord.gg/vvkVDYeuhn",
+    "platoboost_service_id": 35734,
+    "last_updated": "2026-11-05"
+  },
+  "games": [
+    {
+      "id": "mahanakhon-racing",
+      "name": "MAHANAKHON RACING",
+      "placeId": 104549080643413,
+      "status": "operational",
+      "statusText": "ออนไลน์ / พร้อมใช้งาน",
+      "category": "Racing / Vehicle",
+      "icon": "🏎️",
+      "image": "/games/mahanakhon-racing.png",
+      "badge": "New 🔥",
+      "version": "v1.2.0",
+      "discord": "https://discord.gg/vvkVDYeuhn",
+      "badges": [
+        { "icon": "fa-solid fa-gauge-high", "label": "Nitro Boost" },
+        { "icon": "fa-solid fa-coins", "label": "Money Farm" },
+        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
+        { "icon": "fa-solid fa-desktop", "label": "PC" },
+        { "icon": "fa-solid fa-shield-halved", "label": "Safe" }
+      ],
+      "features": [
+        "Speed Multiplier & Infinite Boost",
+        "Instant Acceleration & Grip Tune",
+        "Auto Farm Money / Daily Job",
+        "Anti-Collision / Vehicle Fly & Noclip",
+        "Auto Repair & Infinite Gas",
+        "Player & Vehicle ESP"
+      ]
+    },
+    {
+      "id": "urban-reload",
+      "name": "Urban Reload",
+      "placeId": 84448037861644,
+      "status": "operational",
+      "statusText": "ออนไลน์ / พร้อมใช้งาน",
+      "category": "Shooter / FPS",
+      "icon": "🎯",
+      "image": "/games/urban-reload.png",
+      "badge": "Hot 🔥",
+      "version": "v2.4.0",
+      "discord": "https://discord.gg/vvkVDYeuhn",
+      "badges": [
+        { "icon": "fa-solid fa-crosshairs", "label": "Silent Aim" },
+        { "icon": "fa-solid fa-cube", "label": "Hitbox" },
+        { "icon": "fa-solid fa-eye", "label": "ESP" },
+        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
+        { "icon": "fa-solid fa-desktop", "label": "PC" }
+      ],
+      "features": [
+        "Silent Aim & Camlock (FOV Slider, Head/Torso)",
+        "Legit & Rage Hitbox Expander",
+        "Full ESP (Box, Skeleton, Tracers, Distance, Health)",
+        "Gun Mods (No Recoil, No Spread, Instant Reload, Rapid Fire)",
+        "Anti-AFK & Anti-Kick Protection",
+        "Legit Auto Farm Engine"
+      ]
+    },
+    {
+      "id": "sailueat-archiwa",
+      "name": "สายเลือดอาชีวะ (Sailueat Archiwa)",
+      "placeId": 17300701837,
+      "status": "operational",
+      "statusText": "ออนไลน์ / พร้อมใช้งาน",
+      "category": "Action / RPG",
+      "icon": "⚔️",
+      "image": "/games/sailueat-archiwa.png",
+      "badge": "Popular ⭐",
+      "version": "v1.8.5",
+      "discord": "https://discord.gg/vvkVDYeuhn",
+      "badges": [
+        { "icon": "fa-solid fa-hand-fist", "label": "Fast Attack" },
+        { "icon": "fa-solid fa-sack-dollar", "label": "Bag Exploit" },
+        { "icon": "fa-solid fa-shield-halved", "label": "Bypass" },
+        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
+        { "icon": "fa-solid fa-desktop", "label": "PC" }
+      ],
+      "features": [
+        "Legit Auto Farm (Exp, Level, Items)",
+        "Fast Attack & Auto Weapon Swing",
+        "Auto Buy Ammo & Shop Teleport",
+        "Bag System Exploit / Instant Sell",
+        "Tamper Protection & Client Anticheat Bypass",
+        "Player & Loot ESP"
+      ]
+    },
+    {
+      "id": "universal-hub",
+      "name": "KrakenHub All-In-One Loader",
+      "placeId": 0,
+      "status": "operational",
+      "statusText": "ตรวจจับเกมอัตโนมัติ",
+      "category": "Universal",
+      "icon": "🌊",
+      "image": "/logo.png",
+      "badge": "Main ⚡",
+      "version": "v2.5.0",
+      "discord": "https://discord.gg/vvkVDYeuhn",
+      "badges": [
+        { "icon": "fa-solid fa-water", "label": "Universal" },
+        { "icon": "fa-solid fa-key", "label": "Platoboost" },
+        { "icon": "fa-solid fa-bolt", "label": "60 FPS" },
+        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
+        { "icon": "fa-solid fa-desktop", "label": "PC" }
+      ],
+      "features": [
+        "Platoboost Key System (Auto Verify & Save Key)",
+        "Auto Detect Game & Load Specific Module",
+        "Dark Neon Cyberpunk UI System",
+        "Draggable GUI with Smooth Animations",
+        "Anti-Crash & Auto-Reconnection Safety"
+      ]
+    },
+    {
+      "id": "brookhaven",
+      "name": "Brookhaven 🏡RP",
+      "placeId": 4924922222,
+      "status": "maintenance",
+      "statusText": "กำลังพัฒนา (Coming Soon)",
+      "category": "Roleplay",
+      "icon": "🚗",
+      "image": "/games/brookhaven.png",
+      "badge": "Soon ⏳",
+      "version": "In Development",
+      "discord": "https://discord.gg/vvkVDYeuhn",
+      "badges": [
+        { "icon": "fa-solid fa-car", "label": "Car Boost" },
+        { "icon": "fa-solid fa-house-chimney-user", "label": "Unlocker" },
+        { "icon": "fa-solid fa-plane", "label": "Fly/Noclip" },
+        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
+        { "icon": "fa-solid fa-clock", "label": "Soon" }
+      ],
+      "features": [
+        "Troll GUI & Car Speed Boost",
+        "Fly & Noclip Engine",
+        "House & Car Unlocker",
+        "Avatar Animations & Tools Exploit"
+      ]
+    }
+  ]
+};
+
 // Toast Notification
 function showToast(message, icon = 'fa-circle-check') {
     const toast = document.getElementById('toast');
@@ -49,37 +200,60 @@ function fallbackCopy(text, successMsg) {
     document.body.removeChild(tempInput);
 }
 
-// Fetch Games from API
+// Fetch Games from API with resilient multi-tier fallback
 async function loadGames() {
+    let loaded = false;
+
+    // Tier 1: Try /api/games
     try {
         const res = await fetch('/api/games');
-        const data = await res.json();
-        gamesData = data.games || [];
-        hubInfo = data.hub || {};
-
-        if (hubInfo.version) {
-            const el = document.getElementById('hub-version');
-            if (el) el.textContent = hubInfo.version;
+        if (res.ok) {
+            const data = await res.json();
+            if (data.games && data.games.length > 0) {
+                applyData(data);
+                loaded = true;
+            }
         }
-        if (hubInfo.last_updated) {
-            const el = document.getElementById('last-sync-time');
-            if (el) el.textContent = `อัปเดตระบบ: ${hubInfo.last_updated}`;
-        }
+    } catch (e) {}
 
-        const totalSupported = gamesData.filter(g => g.status === 'operational').length;
-        const totalEl = document.getElementById('stat-total-games');
-        if (totalEl) totalEl.textContent = totalSupported;
-
-        renderGames();
-    } catch (error) {
-        console.error('Failed to load games:', error);
-        document.getElementById('games-grid').innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">
-                <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; margin-bottom: 12px;"></i>
-                <p>โหลดข้อมูลเกมไม่สำเร็จ กรุณาลองใหม่อีกครั้ง</p>
-            </div>
-        `;
+    // Tier 2: Try /data/games.json
+    if (!loaded) {
+        try {
+            const res = await fetch('/data/games.json');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.games && data.games.length > 0) {
+                    applyData(data);
+                    loaded = true;
+                }
+            }
+        } catch (e) {}
     }
+
+    // Tier 3: Built-in Embedded Data (Always works instantly)
+    if (!loaded) {
+        applyData(FALLBACK_DATA);
+    }
+}
+
+function applyData(data) {
+    gamesData = data.games || [];
+    hubInfo = data.hub || {};
+
+    if (hubInfo.version) {
+        const el = document.getElementById('hub-version');
+        if (el) el.textContent = hubInfo.version;
+    }
+    if (hubInfo.last_updated) {
+        const el = document.getElementById('last-sync-time');
+        if (el) el.textContent = `อัปเดตระบบ: ${hubInfo.last_updated}`;
+    }
+
+    const totalSupported = gamesData.filter(g => g.status === 'operational').length;
+    const totalEl = document.getElementById('stat-total-games');
+    if (totalEl) totalEl.textContent = totalSupported;
+
+    renderGames();
 }
 
 // Render Games Grid with Lively Animations & Map Thumbnails

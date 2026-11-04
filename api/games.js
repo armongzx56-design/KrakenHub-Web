@@ -25,3 +25,4 @@ module.exports = (req, res) => {
 
   res.status(200).json({ hub: { name: 'KrakenHub' }, games: [] });
 };
+

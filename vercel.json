@@ -1,10 +1,3 @@
 {
-  "version": 2,
-  "cleanUrls": true,
-  "routes": [
-    { "src": "/api/games", "dest": "/api/games.js" },
-    { "src": "/api/status", "dest": "/api/status.js" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/public/$1" }
-  ]
+  "cleanUrls": true
 }
