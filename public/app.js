@@ -82,7 +82,7 @@ async function loadGames() {
     }
 }
 
-// Render Games Grid with Lively Animations
+// Render Games Grid with Lively Animations & Map Thumbnails
 function renderGames() {
     const container = document.getElementById('games-grid');
     const countLabel = document.getElementById('showing-count');
@@ -91,7 +91,7 @@ function renderGames() {
         const matchesFilter = (
             activeFilter === 'all' ||
             (activeFilter === 'operational' && game.status === 'operational') ||
-            game.category === activeFilter
+            game.category.toLowerCase().includes(activeFilter.toLowerCase())
         );
 
         const query = searchQuery.trim().toLowerCase();
@@ -127,7 +127,7 @@ function renderGames() {
         const delayClass = `float-delay-${(index % 4) + 1}`;
 
         const featuresHtml = (game.features || []).map((f, fi) => `
-            <li class="feature-item feature-bob" style="animation-delay: ${fi * 0.15}s;">
+            <li class="feature-item feature-bob" style="animation-delay: ${fi * 0.12}s;">
                 <i class="fa-solid fa-bolt bolt-spark"></i>
                 <span>${f}</span>
             </li>
@@ -152,16 +152,33 @@ function renderGames() {
             </a>
         ` : '';
 
+        const imageBanner = game.image ? `
+            <div class="card-banner-box">
+                <img src="${game.image}" alt="${game.name}" class="card-banner-img">
+                <div class="card-banner-overlay"></div>
+                <div class="card-banner-badge">
+                    <span class="status-badge ${statusClass} badge-pulse">
+                        <i class="fa-solid ${statusIcon}"></i>
+                        <span>${game.statusText || (isOperational ? 'พร้อมใช้งาน' : 'กำลังปรับปรุง')}</span>
+                    </span>
+                    ${game.badge ? `<span class="hot-badge badge-wiggle">${game.badge}</span>` : ''}
+                </div>
+            </div>
+        ` : '';
+
         return `
             <div class="game-card float-card ${delayClass}">
-                <div class="card-top">
+                ${imageBanner}
+
+                <div class="card-top ${game.image ? 'with-banner' : ''}">
+                    ${!game.image ? `
                     <div class="card-badge-row">
                         <span class="status-badge ${statusClass} badge-pulse">
                             <i class="fa-solid ${statusIcon}"></i>
                             <span>${game.statusText || (isOperational ? 'พร้อมใช้งาน' : 'กำลังปรับปรุง')}</span>
                         </span>
                         ${game.badge ? `<span class="hot-badge badge-wiggle">${game.badge}</span>` : ''}
-                    </div>
+                    </div>` : ''}
 
                     <div class="game-header">
                         <div class="game-icon-box icon-wobble">
