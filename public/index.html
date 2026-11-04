@@ -14,11 +14,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background Animated Mesh Glow -->
+    <!-- Background Animated Mesh Glow & Deep Sea Bubbles -->
     <div class="bg-glow">
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
         <div class="glow-orb orb-3"></div>
+        <div class="bubbles-container">
+            <span class="bubble b1"></span>
+            <span class="bubble b2"></span>
+            <span class="bubble b3"></span>
+            <span class="bubble b4"></span>
+            <span class="bubble b5"></span>
+            <span class="bubble b6"></span>
+            <span class="bubble b7"></span>
+        </div>
     </div>
 
     <!-- Toast Notification -->
@@ -30,7 +39,7 @@
     <!-- Navigation Bar -->
     <header class="navbar">
         <div class="nav-container">
-            <div class="brand">
+            <div class="brand dookdik-hover">
                 <div class="logo-wrapper">
                     <img src="logo.png" alt="KrakenHub Logo" class="brand-logo" onerror="this.src='https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/k_community_logo.png'">
                     <span class="logo-pulse"></span>
@@ -42,12 +51,12 @@
             </div>
 
             <div class="nav-right">
-                <div class="system-status">
+                <div class="system-status pulse-glow">
                     <span class="status-dot"></span>
                     <span class="status-label">ระบบทำงานปกติ (100% Online)</span>
                 </div>
-                <a href="https://discord.gg/vvkVDYeuhn" target="_blank" class="nav-btn discord-btn">
-                    <i class="fa-brands fa-discord"></i>
+                <a href="https://discord.gg/vvkVDYeuhn" target="_blank" class="nav-btn discord-btn bouncy-btn">
+                    <i class="fa-brands fa-discord discord-wiggle"></i>
                     <span>เข้าร่วม Discord</span>
                 </a>
             </div>
@@ -55,80 +64,58 @@
     </header>
 
     <main class="main-content">
-        <!-- Hero Section -->
+        <!-- Hero Section (Clean & Super Animated) -->
         <section class="hero-section">
-            <div class="badge-hero">
-                <i class="fa-solid fa-water"></i>
+            <div class="badge-hero float-bob">
+                <i class="fa-solid fa-water wave-icon"></i>
                 <span>KRAKEN SCRIPT ECOSYSTEM • ROBLOX</span>
             </div>
             <h2 class="hero-title">
                 แมพและฟีเจอร์ที่รองรับ<br>
-                <span class="gradient-text">KrakenHub Official</span>
+                <span class="gradient-text shimmer-text">KrakenHub Official</span>
             </h2>
             <p class="hero-subtitle">
                 ศูนย์รวมสคริปต์พรีเมียม ประสิทธิภาพสูง ฟังก์ชันจัดเต็ม ไม่มีแลค ซัพพอร์ตทั้งมือถือและพีซี
             </p>
 
-            <!-- Discord Script Access Card -->
-            <div class="loader-card discord-cta-card">
-                <div class="loader-header">
-                    <div class="dots">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
-                    </div>
-                    <span class="loader-tag"><i class="fa-solid fa-lock"></i> Official Distribution</span>
-                    <span class="version-tag" id="hub-version">v2.5.0</span>
-                </div>
-                
-                <div class="discord-cta-body">
-                    <div class="discord-cta-icon">
-                        <i class="fa-brands fa-discord"></i>
-                    </div>
-                    <div class="discord-cta-text">
-                        <h3>รับสคริปต์ KrakenHub ได้ที่ Discord เท่านั้น</h3>
-                        <p>เพื่อความปลอดภัย อัปเดตล่าสุด และป้องกันสคริปต์โดนแบน เข้าร่วมเซิร์ฟเวอร์ Discord ของเราเพื่อรับ Loader, คีย์ และแจ้งปัญหาได้ตลอด 24 ชม.</p>
-                    </div>
-                </div>
-
-                <div class="loader-actions">
-                    <a href="https://discord.gg/vvkVDYeuhn" target="_blank" class="btn btn-discord-main">
-                        <i class="fa-brands fa-discord"></i>
-                        <span>เข้าร่วม Discord เพื่อรับสคริปต์</span>
-                    </a>
-                    <a href="https://api.platoboost.com/quick/35734" target="_blank" class="btn btn-secondary">
-                        <i class="fa-solid fa-key"></i>
-                        <span>รับคีย์ (Platoboost)</span>
-                    </a>
-                </div>
+            <div class="hero-cta-wrapper">
+                <a href="https://discord.gg/vvkVDYeuhn" target="_blank" class="btn-bounce-discord">
+                    <i class="fa-brands fa-discord discord-wiggle"></i>
+                    <span>เข้าร่วม Discord เพื่อรับสคริปต์</span>
+                    <i class="fa-solid fa-arrow-right arrow-bounce"></i>
+                </a>
+                <a href="https://api.platoboost.com/quick/35734" target="_blank" class="btn-key-pill">
+                    <i class="fa-solid fa-key key-wiggle"></i>
+                    <span>รับคีย์ (Platoboost)</span>
+                </a>
             </div>
         </section>
 
         <!-- Stats Bar -->
         <section class="stats-section">
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-gamepad"></i></div>
+            <div class="stat-card float-card float-delay-1">
+                <div class="stat-icon icon-dookdik"><i class="fa-solid fa-gamepad"></i></div>
                 <div class="stat-info">
                     <h3 id="stat-total-games">2</h3>
                     <p>แมพที่รองรับในปัจจุบัน</p>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="stat-card float-card float-delay-2">
+                <div class="stat-icon green icon-dookdik"><i class="fa-solid fa-shield-halved"></i></div>
                 <div class="stat-info">
                     <h3>Bypass Active</h3>
                     <p>ระบบหลบหลีกแอนตี้ชีต</p>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="fa-solid fa-bolt"></i></div>
+            <div class="stat-card float-card float-delay-3">
+                <div class="stat-icon purple icon-dookdik"><i class="fa-solid fa-bolt"></i></div>
                 <div class="stat-info">
                     <h3>0 Delay</h3>
                     <p>การทำงานลื่นไหล 60+ FPS</p>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon cyan"><i class="fa-solid fa-mobile-screen"></i></div>
+            <div class="stat-card float-card float-delay-4">
+                <div class="stat-icon cyan icon-dookdik"><i class="fa-solid fa-mobile-screen"></i></div>
                 <div class="stat-info">
                     <h3>PC & Mobile</h3>
                     <p>รองรับทุก Executor</p>
@@ -139,7 +126,7 @@
         <!-- Search & Filter Controls -->
         <section class="controls-section">
             <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <i class="fa-solid fa-magnifying-glass search-icon search-pulse"></i>
                 <input type="text" id="search-input" placeholder="ค้นหาชื่อเกม หรือ Place ID (เช่น Urban Reload, 84448037861644)...">
                 <button id="clear-search" class="clear-btn" style="display: none;">
                     <i class="fa-solid fa-xmark"></i>
@@ -147,11 +134,11 @@
             </div>
 
             <div class="filter-pills" id="category-filters">
-                <button class="pill active" data-filter="all">ทั้งหมด (All)</button>
-                <button class="pill" data-filter="operational">🟢 พร้อมใช้งาน</button>
-                <button class="pill" data-filter="Shooter / FPS">🎯 FPS / Shooter</button>
-                <button class="pill" data-filter="Action / RPG">⚔️ Action / Thai</button>
-                <button class="pill" data-filter="Universal">🌊 Universal</button>
+                <button class="pill active bouncy-pill" data-filter="all">ทั้งหมด (All)</button>
+                <button class="pill bouncy-pill" data-filter="operational">🟢 พร้อมใช้งาน</button>
+                <button class="pill bouncy-pill" data-filter="Shooter / FPS">🎯 FPS / Shooter</button>
+                <button class="pill bouncy-pill" data-filter="Action / RPG">⚔️ Action / Thai</button>
+                <button class="pill bouncy-pill" data-filter="Universal">🌊 Universal</button>
             </div>
         </section>
 
@@ -159,7 +146,7 @@
         <section class="games-section">
             <div class="section-header">
                 <h3>รายการแมพ Roblox (<span id="showing-count">0</span>)</h3>
-                <span class="last-sync" id="last-sync-time">อัปเดตระบบ: 2026-11-05</span>
+                <span class="last-sync pulse-sync" id="last-sync-time">อัปเดตระบบ: 2026-11-05</span>
             </div>
 
             <div class="games-grid" id="games-grid">
@@ -169,19 +156,19 @@
 
         <!-- How To Use / Tutorial Section -->
         <section class="guide-section">
-            <h3 class="guide-title"><i class="fa-solid fa-circle-question"></i> วิธีรับและใช้งานสคริปต์ KrakenHub</h3>
+            <h3 class="guide-title"><i class="fa-solid fa-circle-question question-bob"></i> วิธีรับและใช้งานสคริปต์ KrakenHub</h3>
             <div class="guide-grid">
-                <div class="guide-step">
+                <div class="guide-step step-dookdik step-delay-1">
                     <div class="step-num">01</div>
                     <h4>เข้าดิสคอร์ด KrakenHub</h4>
                     <p>กดปุ่ม "เข้าร่วม Discord" เพื่อเข้าเซิร์ฟเวอร์คอมมูนิตี้ของเราและไปที่ห้องรับสคริปต์</p>
                 </div>
-                <div class="guide-step">
+                <div class="guide-step step-dookdik step-delay-2">
                     <div class="step-num">02</div>
                     <h4>ก๊อปปี้ Loader & รับคีย์</h4>
                     <p>รับโค้ดสคริปต์ล่าสุดจากในห้อง และกดยืนยันคีย์ Platoboost ผ่านลิงก์ในดิสคอร์ด</p>
                 </div>
-                <div class="guide-step">
+                <div class="guide-step step-dookdik step-delay-3">
                     <div class="step-num">03</div>
                     <h4>รันบน Executor</h4>
                     <p>นำโค้ดไปวางในโปรแกรมรันสคริปต์ (เช่น Delta, Solara, Wave, Codex) แล้วสนุกกับเกมได้ทันที!</p>
@@ -198,9 +185,9 @@
                 <p class="disclaimer">โปรเจกต์นี้จัดทำขึ้นสำหรับคอมมูนิตี้ KrakenHub อย่างเป็นทางการ</p>
             </div>
             <div class="footer-links">
-                <a href="https://discord.gg/vvkVDYeuhn" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a>
-                <a href="https://github.com/armongzx56-design" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
-                <a href="https://bot-hosting.net" target="_blank"><i class="fa-solid fa-server"></i> Bot-Hosting</a>
+                <a href="https://discord.gg/vvkVDYeuhn" target="_blank" class="footer-link-bouncy"><i class="fa-brands fa-discord discord-wiggle"></i> Discord</a>
+                <a href="https://github.com/armongzx56-design" target="_blank" class="footer-link-bouncy"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="https://bot-hosting.net" target="_blank" class="footer-link-bouncy"><i class="fa-solid fa-server"></i> Bot-Hosting</a>
             </div>
         </div>
     </footer>

@@ -57,17 +57,18 @@ async function loadGames() {
         gamesData = data.games || [];
         hubInfo = data.hub || {};
 
-        // Update Hub Info in UI
         if (hubInfo.version) {
-            document.getElementById('hub-version').textContent = hubInfo.version;
+            const el = document.getElementById('hub-version');
+            if (el) el.textContent = hubInfo.version;
         }
         if (hubInfo.last_updated) {
-            document.getElementById('last-sync-time').textContent = `อัปเดตระบบ: ${hubInfo.last_updated}`;
+            const el = document.getElementById('last-sync-time');
+            if (el) el.textContent = `อัปเดตระบบ: ${hubInfo.last_updated}`;
         }
 
-        // Update Stats
         const totalSupported = gamesData.filter(g => g.status === 'operational').length;
-        document.getElementById('stat-total-games').textContent = totalSupported;
+        const totalEl = document.getElementById('stat-total-games');
+        if (totalEl) totalEl.textContent = totalSupported;
 
         renderGames();
     } catch (error) {
@@ -81,20 +82,18 @@ async function loadGames() {
     }
 }
 
-// Render Games Grid
+// Render Games Grid with Lively Animations
 function renderGames() {
     const container = document.getElementById('games-grid');
     const countLabel = document.getElementById('showing-count');
 
     const filtered = gamesData.filter(game => {
-        // Filter by category or status
         const matchesFilter = (
             activeFilter === 'all' ||
             (activeFilter === 'operational' && game.status === 'operational') ||
             game.category === activeFilter
         );
 
-        // Filter by search query
         const query = searchQuery.trim().toLowerCase();
         const matchesSearch = (
             !query ||
@@ -111,7 +110,7 @@ function renderGames() {
     if (filtered.length === 0) {
         container.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #64748b;">
-                <i class="fa-solid fa-gamepad" style="font-size: 3rem; margin-bottom: 16px; opacity: 0.4;"></i>
+                <i class="fa-solid fa-gamepad dookdik-empty" style="font-size: 3rem; margin-bottom: 16px; opacity: 0.5;"></i>
                 <h4 style="font-size: 1.2rem; margin-bottom: 6px; color: #94a3b8;">ไม่พบแมพที่ค้นหา</h4>
                 <p style="font-size: 0.9rem;">ลองค้นหาด้วย Place ID หรือชื่อแมพอื่น</p>
             </div>
@@ -121,54 +120,55 @@ function renderGames() {
 
     const discordLink = hubInfo.discord || DEFAULT_DISCORD;
 
-    container.innerHTML = filtered.map(game => {
+    container.innerHTML = filtered.map((game, index) => {
         const isOperational = game.status === 'operational';
         const statusClass = isOperational ? 'operational' : 'maintenance';
-        const statusIcon = isOperational ? 'fa-circle-check' : 'fa-clock';
+        const statusIcon = isOperational ? 'fa-circle-check pulse-dot' : 'fa-clock spin-slow';
+        const delayClass = `float-delay-${(index % 4) + 1}`;
 
-        const featuresHtml = (game.features || []).map(f => `
-            <li class="feature-item">
-                <i class="fa-solid fa-bolt"></i>
+        const featuresHtml = (game.features || []).map((f, fi) => `
+            <li class="feature-item feature-bob" style="animation-delay: ${fi * 0.15}s;">
+                <i class="fa-solid fa-bolt bolt-spark"></i>
                 <span>${f}</span>
             </li>
         `).join('');
 
         const placeIdSnippet = game.placeId > 0 ? `
-            <div class="placeid-tag" onclick="copyText('${game.placeId}', 'คัดลอก Place ID สำเร็จ!')" title="คลิกเพื่อคัดลอก Place ID">
+            <div class="placeid-tag bouncy-tag" onclick="copyText('${game.placeId}', 'คัดลอก Place ID สำเร็จ!')" title="คลิกเพื่อคัดลอก Place ID">
                 <i class="fa-solid fa-hashtag"></i>
                 <span>${game.placeId}</span>
-                <i class="fa-regular fa-copy" style="font-size: 0.7rem; opacity: 0.7;"></i>
+                <i class="fa-regular fa-copy copy-hover" style="font-size: 0.7rem; opacity: 0.7;"></i>
             </div>
         ` : `
             <div class="placeid-tag" style="cursor: default;">
-                <i class="fa-solid fa-globe"></i>
+                <i class="fa-solid fa-globe spin-slow"></i>
                 <span>Universal (All Games)</span>
             </div>
         `;
 
         const robloxBtn = game.placeId > 0 ? `
-            <a href="https://www.roblox.com/games/${game.placeId}" target="_blank" class="card-btn roblox" title="เปิดหน้าเกมบน Roblox">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <a href="https://www.roblox.com/games/${game.placeId}" target="_blank" class="card-btn roblox bouncy-btn" title="เปิดหน้าเกมบน Roblox">
+                <i class="fa-solid fa-arrow-up-right-from-square arrow-pop"></i>
             </a>
         ` : '';
 
         return `
-            <div class="game-card">
+            <div class="game-card float-card ${delayClass}">
                 <div class="card-top">
                     <div class="card-badge-row">
-                        <span class="status-badge ${statusClass}">
+                        <span class="status-badge ${statusClass} badge-pulse">
                             <i class="fa-solid ${statusIcon}"></i>
                             <span>${game.statusText || (isOperational ? 'พร้อมใช้งาน' : 'กำลังปรับปรุง')}</span>
                         </span>
-                        ${game.badge ? `<span class="hot-badge">${game.badge}</span>` : ''}
+                        ${game.badge ? `<span class="hot-badge badge-wiggle">${game.badge}</span>` : ''}
                     </div>
 
                     <div class="game-header">
-                        <div class="game-icon-box">
+                        <div class="game-icon-box icon-wobble">
                             <span>${game.icon || '🎮'}</span>
                         </div>
                         <div class="game-title-group">
-                            <h4>${game.name}</h4>
+                            <h4 class="game-title-hover">${game.name}</h4>
                             <span class="game-category">${game.category} • ${game.version || 'v1.0'}</span>
                         </div>
                     </div>
@@ -184,8 +184,8 @@ function renderGames() {
                 </div>
 
                 <div class="card-actions">
-                    <a href="${discordLink}" target="_blank" class="card-btn discord">
-                        <i class="fa-brands fa-discord"></i>
+                    <a href="${discordLink}" target="_blank" class="card-btn discord bouncy-btn">
+                        <i class="fa-brands fa-discord discord-wiggle"></i>
                         <span>รับสคริปต์ใน Discord</span>
                     </a>
                     ${robloxBtn}
