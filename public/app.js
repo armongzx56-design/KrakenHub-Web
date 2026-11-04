@@ -166,6 +166,14 @@ function renderGames() {
             </div>
         ` : '';
 
+        // Mini Feature / Spec Badges at the bottom
+        const miniBadgesHtml = (game.badges || []).map((b, bi) => `
+            <span class="mini-spec-badge badge-pop" style="animation-delay: ${bi * 0.1}s;" title="${b.label}">
+                <i class="${b.icon}"></i>
+                <span>${b.label}</span>
+            </span>
+        `).join('');
+
         return `
             <div class="game-card float-card ${delayClass}">
                 ${imageBanner}
@@ -198,6 +206,13 @@ function renderGames() {
                     <ul class="feature-list">
                         ${featuresHtml}
                     </ul>
+                </div>
+
+                <!-- Mini Bottom Badges & Tech Specs -->
+                <div class="card-bottom-specs">
+                    <div class="mini-badges-row">
+                        ${miniBadgesHtml}
+                    </div>
                 </div>
 
                 <div class="card-actions">

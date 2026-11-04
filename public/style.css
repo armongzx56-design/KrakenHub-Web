@@ -1136,3 +1136,59 @@ body {
 .card-top.with-banner {
     padding-top: 12px;
 }
+
+/* Mini Bottom Badges Styling (ไอคอนเล็กๆ ด้านล่างการ์ด) */
+.card-bottom-specs {
+    padding: 0 22px 14px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.06);
+    padding-top: 12px;
+}
+
+.mini-badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    align-items: center;
+}
+
+.mini-spec-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    cursor: default;
+    transition: all 0.25s var(--bounce-easing);
+}
+
+.mini-spec-badge i {
+    color: var(--cyan-primary);
+    font-size: 0.72rem;
+    transition: transform 0.2s ease;
+}
+
+.mini-spec-badge:hover {
+    background: rgba(0, 229, 255, 0.12);
+    border-color: var(--cyan-primary);
+    color: #fff;
+    transform: translateY(-2px) scale(1.08);
+    box-shadow: 0 4px 10px var(--cyan-glow);
+}
+
+.mini-spec-badge:hover i {
+    transform: rotate(12deg) scale(1.2);
+}
+
+.badge-pop {
+    animation: badgePopIn 0.4s var(--bounce-easing) backwards;
+}
+
+@keyframes badgePopIn {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
