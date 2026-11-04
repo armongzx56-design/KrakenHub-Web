@@ -1,0 +1,91 @@
+{
+  "hub": {
+    "name": "KrakenHub",
+    "version": "v2.5.0",
+    "description": "ศูนย์รวมสคริปต์ระดับพรีเมียม ประสิทธิภาพสูง ไม่แลค ปลอดภัย รองรับหลายแมพใน Roblox",
+    "loader": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/KrakenHub_Loader.luau\"))()",
+    "discord": "https://discord.gg/krakenhub",
+    "platoboost_service_id": 35734,
+    "last_updated": "2026-11-05"
+  },
+  "games": [
+    {
+      "id": "urban-reload",
+      "name": "Urban Reload",
+      "placeId": 84448037861644,
+      "status": "operational",
+      "statusText": "ออนไลน์ / พร้อมใช้งาน",
+      "category": "Shooter / FPS",
+      "icon": "🎯",
+      "badge": "Hot 🔥",
+      "version": "v2.4.0",
+      "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/urban-reload.luau\"))()",
+      "features": [
+        "Silent Aim & Camlock (FOV Slider, Head/Torso)",
+        "Legit & Rage Hitbox Expander",
+        "Full ESP (Box, Skeleton, Tracers, Distance, Health)",
+        "Gun Mods (No Recoil, No Spread, Instant Reload, Rapid Fire)",
+        "Anti-AFK & Anti-Kick Protection",
+        "Legit Auto Farm Engine"
+      ]
+    },
+    {
+      "id": "sailueat-archiwa",
+      "name": "สายเลือดอาชีวะ (Sailueat Archiwa)",
+      "placeId": 17300701837,
+      "status": "operational",
+      "statusText": "ออนไลน์ / พร้อมใช้งาน",
+      "category": "Action / RPG",
+      "icon": "⚔️",
+      "badge": "Popular ⭐",
+      "version": "v1.8.5",
+      "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/KrakenHub_Loader.luau\"))()",
+      "features": [
+        "Legit Auto Farm (Exp, Level, Items)",
+        "Fast Attack & Auto Weapon Swing",
+        "Auto Buy Ammo & Shop Teleport",
+        "Bag System Exploit / Instant Sell",
+        "Tamper Protection & Client Anticheat Bypass",
+        "Player & Loot ESP"
+      ]
+    },
+    {
+      "id": "universal-hub",
+      "name": "KrakenHub All-In-One Loader",
+      "placeId": 0,
+      "status": "operational",
+      "statusText": "ตรวจจับเกมอัตโนมัติ",
+      "category": "Universal",
+      "icon": "🌊",
+      "badge": "Main ⚡",
+      "version": "v2.5.0",
+      "script": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/KrakenHub_Loader.luau\"))()",
+      "features": [
+        "Platoboost Key System (Auto Verify & Save Key)",
+        "Auto Detect Game & Load Specific Module",
+        "Dark Neon Cyberpunk UI System",
+        "Draggable GUI with Smooth Animations",
+        "Anti-Crash & Auto-Reconnection Safety"
+      ]
+    },
+    {
+      "id": "brookhaven",
+      "name": "Brookhaven 🏡RP",
+      "placeId": 4924922222,
+      "status": "maintenance",
+      "statusText": "กำลังพัฒนา (Coming Soon)",
+      "category": "Roleplay",
+      "icon": "🚗",
+      "badge": "Soon ⏳",
+      "version": "In Development",
+      "script": "",
+      "features": [
+        "Troll GUI & Car Speed Boost",
+        "Fly & Noclip Engine",
+        "House & Car Unlocker",
+        "Avatar Animations & Tools Exploit"
+      ]
+    }
+  ]
+}
+

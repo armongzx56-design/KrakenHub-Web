@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrakenHub | รายชื่อแมพและระบบที่รองรับ</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Animated Mesh Glow -->
+    <div class="bg-glow">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-msg">คัดลอกสำเร็จ!</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="logo-wrapper">
+                    <img src="logo.png" alt="KrakenHub Logo" class="brand-logo" onerror="this.src='https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/k_community_logo.png'">
+                    <span class="logo-pulse"></span>
+                </div>
+                <div class="brand-text">
+                    <h1>KRAKEN<span>HUB</span></h1>
+                    <span class="brand-tag">SUPPORTED GAMES PORTAL</span>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    <span class="status-label">ระบบทำงานปกติ (100% Online)</span>
+                </div>
+                <a href="https://discord.gg/krakenhub" target="_blank" class="nav-btn discord-btn">
+                    <i class="fa-brands fa-discord"></i>
+                    <span>เข้าร่วม Discord</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="badge-hero">
+                <i class="fa-solid fa-water"></i>
+                <span>KRAKEN SCRIPT ECOSYSTEM • ROBLOX</span>
+            </div>
+            <h2 class="hero-title">
+                แมพและฟีเจอร์ที่รองรับ<br>
+                <span class="gradient-text">KrakenHub Official</span>
+            </h2>
+            <p class="hero-subtitle">
+                ศูนย์รวมสคริปต์พรีเมียม ประสิทธิภาพสูง ฟังก์ชันจัดเต็ม ไม่มีแลค ซัพพอร์ตทั้งมือถือและพีซี
+            </p>
+
+            <!-- Quick Loader Card -->
+            <div class="loader-card">
+                <div class="loader-header">
+                    <div class="dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span class="loader-tag">Universal Loader (Luau)</span>
+                    <span class="version-tag" id="hub-version">v2.5.0</span>
+                </div>
+                <div class="code-box">
+                    <code id="main-script-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/KrakenHub_Loader.luau"))()</code>
+                </div>
+                <div class="loader-actions">
+                    <button class="btn btn-primary" id="copy-main-script-btn">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>คัดลอกสคริปต์หลัก (Copy Loader)</span>
+                    </button>
+                    <a href="https://api.platoboost.com/quick/35734" target="_blank" class="btn btn-secondary">
+                        <i class="fa-solid fa-key"></i>
+                        <span>รับคีย์ (Platoboost)</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-gamepad"></i></div>
+                <div class="stat-info">
+                    <h3 id="stat-total-games">2</h3>
+                    <p>แมพที่รองรับในปัจจุบัน</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="stat-info">
+                    <h3>Bypass Active</h3>
+                    <p>ระบบหลบหลีกแอนตี้ชีต</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="fa-solid fa-bolt"></i></div>
+                <div class="stat-info">
+                    <h3>0 Delay</h3>
+                    <p>การทำงานลื่นไหล 60+ FPS</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon cyan"><i class="fa-solid fa-mobile-screen"></i></div>
+                <div class="stat-info">
+                    <h3>PC & Mobile</h3>
+                    <p>รองรับทุก Executor</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search & Filter Controls -->
+        <section class="controls-section">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search-input" placeholder="ค้นหาชื่อเกม หรือ Place ID (เช่น Urban Reload, 84448037861644)...">
+                <button id="clear-search" class="clear-btn" style="display: none;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="filter-pills" id="category-filters">
+                <button class="pill active" data-filter="all">ทั้งหมด (All)</button>
+                <button class="pill" data-filter="operational">🟢 พร้อมใช้งาน</button>
+                <button class="pill" data-filter="Shooter / FPS">🎯 FPS / Shooter</button>
+                <button class="pill" data-filter="Action / RPG">⚔️ Action / Thai</button>
+                <button class="pill" data-filter="Universal">🌊 Universal</button>
+            </div>
+        </section>
+
+        <!-- Games Grid -->
+        <section class="games-section">
+            <div class="section-header">
+                <h3>รายการแมพ Roblox (<span id="showing-count">0</span>)</h3>
+                <span class="last-sync" id="last-sync-time">อัปเดตล่าสุด: กำลังโหลด...</span>
+            </div>
+
+            <div class="games-grid" id="games-grid">
+                <!-- Injected via JavaScript -->
+            </div>
+        </section>
+
+        <!-- How To Use / Tutorial Section -->
+        <section class="guide-section">
+            <h3 class="guide-title"><i class="fa-solid fa-circle-question"></i> วิธีใช้งานสคริปต์ KrakenHub</h3>
+            <div class="guide-grid">
+                <div class="guide-step">
+                    <div class="step-num">01</div>
+                    <h4>คัดลอกสคริปต์</h4>
+                    <p>กดปุ่ม "คัดลอกสคริปต์หลัก" จากการ์ดด้านบน หรือเลือกคัดลอกโค้ดของแต่ละแมพโดยตรง</p>
+                </div>
+                <div class="guide-step">
+                    <div class="step-num">02</div>
+                    <h4>เปิด Executor ของคุณ</h4>
+                    <p>เปิดโปรแกรมรันสคริปต์ เช่น Solara, Delta, Fluxus, Codex, Wave, Arceus X บน PC หรือโทรศัพท์</p>
+                </div>
+                <div class="guide-step">
+                    <div class="step-num">03</div>
+                    <h4>วางโค้ดและ Execute</h4>
+                    <p>นำโค้ดที่คัดลอกไปวางในช่อง Execute แล้วกดรัน จากนั้นยืนยันคีย์ Platoboost เพื่อเริ่มใช้งาน!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p class="copyright">© 2026 <strong>KrakenHub</strong>. Crafted by <span>armongzx56-design</span>.</p>
+                <p class="disclaimer">โปรเจกต์นี้จัดทำขึ้นสำหรับคอมมูนิตี้ KrakenHub อย่างเป็นทางการ</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://discord.gg/krakenhub" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a>
+                <a href="https://github.com/armongzx56-design" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="https://bot-hosting.net" target="_blank"><i class="fa-solid fa-server"></i> Bot-Hosting</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

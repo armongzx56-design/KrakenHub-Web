@@ -1,0 +1,16 @@
+{
+  "name": "krakenhub-games-web",
+  "version": "1.0.0",
+  "description": "KrakenHub Supported Games Showcase & Web Hub",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
