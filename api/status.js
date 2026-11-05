@@ -1,7 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-
-const DATA_FILE = path.join(process.cwd(), 'data', 'games.json');
+let gamesData;
+try {
+  gamesData = require('../data/games.json');
+} catch (e) {
+  try {
+    gamesData = require('../public/data/games.json');
+  } catch (e2) {
+    gamesData = { hub: {}, games: [] };
+  }
+}
 
 module.exports = (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,20 +19,9 @@ module.exports = (req, res) => {
     return;
   }
 
-  let totalGames = 5;
-  let activeGames = 4;
-  let hubVersion = 'v2.5.0';
-
-  try {
-    if (fs.existsSync(DATA_FILE)) {
-      const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-      hubVersion = data.hub?.version || hubVersion;
-      totalGames = data.games ? data.games.length : totalGames;
-      activeGames = data.games ? data.games.filter(g => g.status === 'operational').length : activeGames;
-    }
-  } catch (err) {
-    console.error('Status read error:', err);
-  }
+  const hubVersion = gamesData.hub?.version || 'v2.5.0';
+  const totalGames = gamesData.games ? gamesData.games.length : 5;
+  const activeGames = gamesData.games ? gamesData.games.filter(g => g.status === 'operational').length : 4;
 
   res.status(200).json({
     status: 'online',
@@ -37,4 +32,3 @@ module.exports = (req, res) => {
     activeGames
   });
 };
-

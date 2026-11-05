@@ -1,7 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-
-const DATA_FILE = path.join(process.cwd(), 'data', 'games.json');
+let gamesData;
+try {
+  gamesData = require('../data/games.json');
+} catch (e) {
+  try {
+    gamesData = require('../public/data/games.json');
+  } catch (e2) {
+    gamesData = { hub: { name: 'KrakenHub' }, games: [] };
+  }
+}
 
 module.exports = (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,16 +19,5 @@ module.exports = (req, res) => {
     return;
   }
 
-  try {
-    if (fs.existsSync(DATA_FILE)) {
-      const content = fs.readFileSync(DATA_FILE, 'utf8');
-      res.status(200).send(content);
-      return;
-    }
-  } catch (err) {
-    console.error('Error reading games.json on Vercel:', err);
-  }
-
-  res.status(200).json({ hub: { name: 'KrakenHub' }, games: [] });
+  res.status(200).json(gamesData);
 };
-
