@@ -5,13 +5,14 @@ const url = require('url');
 
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const DATA_FILE = path.join(__dirname, 'data', 'games.json');
+const DATA_DIR = path.join(__dirname, 'data');
 
 const MIME_TYPES = {
     '.html': 'text/html; charset=utf-8',
     '.css': 'text/css; charset=utf-8',
     '.js': 'application/javascript; charset=utf-8',
     '.json': 'application/json; charset=utf-8',
+    '.webmanifest': 'application/manifest+json; charset=utf-8',
     '.png': 'image/png',
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
@@ -20,23 +21,23 @@ const MIME_TYPES = {
     '.txt': 'text/plain; charset=utf-8'
 };
 
-function getGamesData() {
+function readJsonFile(filename, fallback) {
     try {
-        if (fs.existsSync(DATA_FILE)) {
-            const raw = fs.readFileSync(DATA_FILE, 'utf8');
-            return JSON.parse(raw);
+        const fp = path.join(DATA_DIR, filename);
+        if (fs.existsSync(fp)) {
+            return JSON.parse(fs.readFileSync(fp, 'utf8'));
         }
     } catch (err) {
-        console.error('Error reading games.json:', err.message);
+        console.error(`Error reading ${filename}:`, err.message);
     }
-    return { hub: {}, games: [] };
+    return fallback;
 }
 
 const server = http.createServer((req, res) => {
-    // CORS & Security headers
+    // CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
     if (req.method === 'OPTIONS') {
         res.writeHead(204);
@@ -47,31 +48,115 @@ const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url);
     let pathname = decodeURIComponent(parsedUrl.pathname);
 
-    // API: Games
-    if (pathname === '/api/games') {
-        const data = getGamesData();
+    // ==========================================
+    // API ROUTES
+    // ==========================================
+    if (pathname === '/api/public/site') {
+        const data = readJsonFile('site.json', { t: Date.now(), settings: {}, maps: [], updates: [] });
+        data.t = Date.now();
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify(data));
         return;
     }
 
-    // API: Status
-    if (pathname === '/api/status') {
-        const data = getGamesData();
-        const status = {
-            status: 'online',
-            uptime: Math.floor(process.uptime()),
-            timestamp: new Date().toISOString(),
-            hubVersion: data.hub?.version || 'v2.5.0',
-            totalGames: data.games ? data.games.length : 0,
-            activeGames: data.games ? data.games.filter(g => g.status === 'operational').length : 0
-        };
+    if (pathname === '/api/public/live') {
+        const data = readJsonFile('live.json', {
+            t: Date.now(),
+            online: 15,
+            countries: 2,
+            mapsOnline: 6,
+            servers: 15,
+            points: [
+                { lat: 13.7563, lon: 100.5018, count: 6 },
+                { lat: 14.4, lon: 100.6, count: 2 },
+                { lat: 18.7883, lon: 98.9853, count: 2 },
+                { lat: 7.2, lon: 100.6, count: 2 },
+                { lat: 15.2, lon: 102.3, count: 2 },
+                { lat: 8.1, lon: 98.9, count: 1 }
+            ],
+            top: [
+                { name: "MAHANAKHON RACING", online: 5 },
+                { name: "Urban Reload", online: 4 },
+                { name: "I Sailueatarchiwa", online: 2 },
+                { name: "Blox Fruits", online: 2 },
+                { name: "Blade Ball", online: 2 }
+            ]
+        });
+        data.t = Date.now();
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify(status));
+        res.end(JSON.stringify(data));
         return;
     }
 
-    // Static Files
+    if (pathname === '/api/shop/plans') {
+        const data = readJsonFile('plans.json', {
+            enabled: true,
+            plans: [
+                { id: "p1", name: "7 วัน", hours: 168, price: 999, tier: "premium", maxDevices: 1 },
+                { id: "p2", name: "30 วัน", hours: 720, price: 1999, tier: "premium", maxDevices: 1 },
+                { id: "p3", name: "ถาวร", hours: 0, price: 3999, tier: "premium", maxDevices: 1 },
+                { id: "p4", name: "ถาวร", hours: 0, price: 5999, tier: "premium", maxDevices: 3 }
+            ],
+            loginReady: true,
+            topupMode: "auto"
+        });
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify(data));
+        return;
+    }
+
+    if (pathname === '/api/shop/session' || pathname === '/api/shop/me') {
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ authed: false, user: null, guest: true }));
+        return;
+    }
+
+    if (pathname === '/api/status') {
+        const gamesData = readJsonFile('games.json', { hub: {}, games: [] });
+        const siteData = readJsonFile('site.json', { maps: [] });
+        const hubVersion = gamesData.hub?.version || 'v2.5.0';
+        const totalGames = siteData.maps?.length || (gamesData.games ? gamesData.games.length : 19);
+        const activeGames = siteData.maps ? siteData.maps.filter(g => g.status === 'operational').length : 16;
+
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({
+            status: 'online',
+            configured: true,
+            discord: true,
+            password: false,
+            authed: false,
+            owner: false,
+            pending: false,
+            blocked: false,
+            user: null,
+            redirectUri: "/auth/discord/callback",
+            onRailway: false,
+            volume: true,
+            uptime: Math.floor(process.uptime()),
+            timestamp: new Date().toISOString(),
+            hubVersion,
+            totalGames,
+            activeGames
+        }));
+        return;
+    }
+
+    if (pathname === '/api/games') {
+        const data = readJsonFile('games.json', { hub: {}, games: [] });
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify(data));
+        return;
+    }
+
+    if (pathname.startsWith('/api/key/')) {
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ ok: true, active: false }));
+        return;
+    }
+
+    // ==========================================
+    // STATIC FILES & CLEAN URLS
+    // ==========================================
     if (pathname === '/' || pathname === '') {
         pathname = '/index.html';
     }
@@ -85,6 +170,14 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Clean URL resolution: if /maps requested, try /maps.html
+    if (!path.extname(filePath)) {
+        const htmlPath = filePath + '.html';
+        if (fs.existsSync(htmlPath)) {
+            filePath = htmlPath;
+        }
+    }
+
     fs.stat(filePath, (err, stats) => {
         if (!err && stats.isFile()) {
             const ext = path.extname(filePath).toLowerCase();
@@ -92,18 +185,20 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': contentType });
             fs.createReadStream(filePath).pipe(res);
         } else {
-            // SPA Fallback: serve index.html
+            // Check fallback index.html
             const fallbackPath = path.join(PUBLIC_DIR, 'index.html');
-            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-            fs.createReadStream(fallbackPath).pipe(res);
+            if (fs.existsSync(fallbackPath)) {
+                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                fs.createReadStream(fallbackPath).pipe(res);
+            } else {
+                res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+                res.end('404 Not Found');
+            }
         }
     });
 });
 
-server.listen(PORT, '0.0.0.0', () => {
-    console.log('==================================================');
-    console.log('🌊 KrakenHub Supported Games Web Server Active!');
-    console.log(`🚀 Port: ${PORT}`);
-    console.log(`🌐 Local URL: http://localhost:${PORT}`);
-    console.log('==================================================');
+server.listen(PORT, () => {
+    console.log(`[KrakenHub-Web] Server listening on http://localhost:${PORT}`);
+    console.log(`[KrakenHub-Web] Clean URLs enabled: /maps, /get, /buy, /status, /updates, /live, /key, /login, /me`);
 });
