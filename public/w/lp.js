@@ -8,7 +8,7 @@
   /* ---------- โลโก้โหลดไม่ได้ -> แสดงข้อความแทน ---------- */
   var probe = new Image();
   probe.onerror = function () { mark.classList.add("noimg"); };
-  probe.src = "/rvx-logo.png";
+  probe.src = "/kraken-logo.png";
 
   /* ---------- โทนธีม ---------- */
   function parse(c) {

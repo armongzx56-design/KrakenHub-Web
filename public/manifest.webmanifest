@@ -1,7 +1,7 @@
 {
-  "name": "RVX Hub",
-  "short_name": "RVX Hub",
-  "description": "สคริปต์เดียว ทุกแมพ — ดูสถานะ แมพที่รองรับ และอัปเดตล่าสุด",
+  "name": "KrakenHub",
+  "short_name": "KrakenHub",
+  "description": "KrakenHub สคริปต์ระดับพรีเมียม — ศูนย์รวมสคริปต์ ประสิทธิภาพสูง ไม่แลค รองรับหลายแมพ",
   "id": "/",
   "start_url": "/?source=app",
   "scope": "/",
@@ -11,13 +11,37 @@
   "theme_color": "#000000",
   "lang": "th",
   "icons": [
-    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    { "name": "รับสคริปต์", "url": "/get" },
-    { "name": "อัปเดตล่าสุด", "url": "/updates" },
-    { "name": "สถานะระบบ", "url": "/status" }
+    {
+      "name": "รับสคริปต์",
+      "url": "/get"
+    },
+    {
+      "name": "อัปเดตล่าสุด",
+      "url": "/updates"
+    },
+    {
+      "name": "สถานะระบบ",
+      "url": "/status"
+    }
   ]
 }

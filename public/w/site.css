@@ -416,8 +416,8 @@ html.theme-vt::view-transition-new(root){z-index:2}
 main>.pg-top+.wrap,main>.pg-top+section{margin-top:clamp(14px,3vw,26px)}
 
 .pg-cover{position:relative;display:grid;place-items:center;margin:clamp(2px,1.6vw,14px) 0 clamp(10px,2vw,20px)}
-.pg-mark{--w:clamp(92px,15vw,138px);position:relative;width:var(--w);aspect-ratio:1200/1066;filter:drop-shadow(0 18px 44px color-mix(in srgb,var(--fg) 14%,transparent));transform:perspective(900px) rotateX(var(--ty,0deg)) rotateY(var(--tx,0deg));transition:transform .5s var(--ease)}
-.pg-mark i{position:absolute;inset:0;display:block;-webkit-mask:url(/rvx-logo.png) center/contain no-repeat;mask:url(/rvx-logo.png) center/contain no-repeat}
+.pg-mark{--w:clamp(92px,15vw,138px);position:relative;width:var(--w);aspect-ratio:1/1;filter:drop-shadow(0 18px 44px color-mix(in srgb,var(--fg) 14%,transparent));transform:perspective(900px) rotateX(var(--ty,0deg)) rotateY(var(--tx,0deg));transition:transform .5s var(--ease)}
+.pg-mark i{position:absolute;inset:0;display:block;-webkit-mask:url(/kraken-logo.png) center/contain no-repeat;mask:url(/kraken-logo.png) center/contain no-repeat}
 .pg-base{background:var(--fg);opacity:.66}
 .pg-glow{background:radial-gradient(circle at var(--mx,50%) var(--my,40%),var(--fg) 0,var(--fg) 8%,transparent 46%)}
 @media (prefers-reduced-motion:no-preference){.pg-mark{animation:pg-in .9s var(--ease) both}@keyframes pg-in{from{opacity:0;transform:scale(.94);filter:blur(12px)}}}
@@ -430,5 +430,5 @@ main>.pg-top+.wrap,main>.pg-top+section{margin-top:clamp(14px,3vw,26px)}
 /* โลโก้ RVX จริงแทนไอคอนเทอร์มินัล (เมนู ท้ายเว็บ หน้าเข้าสู่ระบบ) */
 .mark.rvx{background:none!important;border-radius:0!important;width:34px;height:30px;position:relative;color:var(--fg)}
 .mark.rvx .i{display:none}
-.mark.rvx::before{content:"";position:absolute;inset:0;background:var(--fg);-webkit-mask:url(/rvx-logo.png) center/contain no-repeat;mask:url(/rvx-logo.png) center/contain no-repeat}
+.mark.rvx::before{content:"";position:absolute;inset:0;background:var(--fg);-webkit-mask:url(/kraken-logo.png) center/contain no-repeat;mask:url(/kraken-logo.png) center/contain no-repeat}
 .mark.rvx.lg-mark{width:72px;height:64px}
