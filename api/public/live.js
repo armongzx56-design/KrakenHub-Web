@@ -44,3 +44,4 @@ module.exports = (req, res) => {
   data.t = Date.now();
   res.status(200).json(data);
 };
+
