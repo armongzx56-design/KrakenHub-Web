@@ -184,11 +184,12 @@ function thumbHtml(m) {
 }
 function bindThumb(root) { $$(".thumb img", root).forEach(img => img.addEventListener("error", () => img.remove(), { once: true })); }
 function mapCard(m, delay) {
-  const el = document.createElement("button"); el.type = "button"; el.className = "mcard rv"; el.dataset.key = m.key; if (delay) el.style.setProperty("--d", delay + "s");
-  const feats = m.features.slice(0, 4).map(f => `<span class="feat">${esc(f)}</span>`).join("");
-  const left = m.status === "soon" ? `<span>${ic("clock")}${esc(t("st.soon"))}</span>` : `<span>${ic("users")}${esc(t("maps.online", { n: m.online.toLocaleString() }))}</span>`;
+  const el = document.createElement("button"); el.type = "button"; el.className = "mcard rv" + (m.featured ? " featured-card" : ""); el.dataset.key = m.key; if (delay) el.style.setProperty("--d", delay + "s");
+  const feats = (m.features || []).slice(0, 4).map(f => `<span class="feat">${esc(f)}</span>`).join("");
+  const left = m.status === "soon" ? `<span>${ic("clock")}${esc(t("st.soon"))}</span>` : `<span>${ic("users")}${esc(t("maps.online", { n: (m.online || 0).toLocaleString() }))}</span>`;
   const right = m.updated ? `<span>${esc(t("maps.updated", { t: ago(m.updated) }))}</span>` : "";
-  el.innerHTML = thumbHtml(m) + `<div class="mbody"><div class="mname">${esc(m.name)}</div><div class="mdesc">${esc(m.desc || (m.status === "soon" ? "" : t("maps.noDesc")))}</div>${feats ? `<div class="feats">${feats}</div>` : ""}<div class="mfoot">${left}${right}</div></div>`;
+  const featBadge = m.featured ? `<span class="feat-badge"><i class="badge-fire">🔥</i> HOT</span>` : "";
+  el.innerHTML = thumbHtml(m) + featBadge + `<div class="mbody"><div class="mname">${esc(m.name)}</div><div class="mdesc">${esc(m.desc || (m.status === "soon" ? "" : t("maps.noDesc")))}</div>${feats ? `<div class="feats">${feats}</div>` : ""}<div class="mfoot">${left}${right}</div></div>`;
   bindThumb(el);
   return el;
 }

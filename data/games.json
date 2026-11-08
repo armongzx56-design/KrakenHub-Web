@@ -9,6 +9,49 @@
   },
   "games": [
     {
+      "id": "mahalair-chaorock",
+      "name": "มหาลัยชาวร็อค (Mahalair Chaorock)",
+      "placeId": 73779053018727,
+      "status": "operational",
+      "statusText": "ออนไลน์ / พร้อมใช้งาน",
+      "category": "Action / Roleplay",
+      "icon": "🎸",
+      "image": "https://tr.rbxcdn.com/180DAY-6b8c75f55a0488464c9ab119777be074/256/256/Image/Png/noFilter",
+      "badge": "New 🔥",
+      "version": "v2.0.0",
+      "discord": "https://discord.gg/vvkVDYeuhn",
+      "badges": [
+        {
+          "icon": "fa-solid fa-bolt",
+          "label": "Auto Farm ฿500"
+        },
+        {
+          "icon": "fa-solid fa-rotate",
+          "label": "Fast Rotate"
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "label": "Station ESP"
+        },
+        {
+          "icon": "fa-solid fa-location-dot",
+          "label": "Teleport"
+        },
+        {
+          "icon": "fa-solid fa-shield-halved",
+          "label": "Safe"
+        }
+      ],
+      "features": [
+        "Current Spot Auto Farm (เชื่อมเหล็ก ฿500)",
+        "Master Auto Farm (ขันน็อต/ซ่อมรถ/ปูน)",
+        "Fast Rotate สลับ 2 จุดฟาร์มไร้คูลดาวน์",
+        "Clean Screen ซ่อนมินิเกมไม่บังจอ",
+        "Station & Player ESP",
+        "City Teleport อุเทน/ปทุมวัน/ตลาด"
+      ]
+    },
+    {
       "id": "mahanakhon-racing",
       "name": "MAHANAKHON RACING",
       "placeId": 104549080643413,
@@ -21,11 +64,26 @@
       "version": "v1.2.0",
       "discord": "https://discord.gg/vvkVDYeuhn",
       "badges": [
-        { "icon": "fa-solid fa-gauge-high", "label": "Nitro Boost" },
-        { "icon": "fa-solid fa-coins", "label": "Money Farm" },
-        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
-        { "icon": "fa-solid fa-desktop", "label": "PC" },
-        { "icon": "fa-solid fa-shield-halved", "label": "Safe" }
+        {
+          "icon": "fa-solid fa-gauge-high",
+          "label": "Nitro Boost"
+        },
+        {
+          "icon": "fa-solid fa-coins",
+          "label": "Money Farm"
+        },
+        {
+          "icon": "fa-solid fa-mobile-screen",
+          "label": "Mobile"
+        },
+        {
+          "icon": "fa-solid fa-desktop",
+          "label": "PC"
+        },
+        {
+          "icon": "fa-solid fa-shield-halved",
+          "label": "Safe"
+        }
       ],
       "features": [
         "Speed Multiplier & Infinite Boost",
@@ -49,11 +107,26 @@
       "version": "v2.4.0",
       "discord": "https://discord.gg/vvkVDYeuhn",
       "badges": [
-        { "icon": "fa-solid fa-crosshairs", "label": "Silent Aim" },
-        { "icon": "fa-solid fa-cube", "label": "Hitbox" },
-        { "icon": "fa-solid fa-eye", "label": "ESP" },
-        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
-        { "icon": "fa-solid fa-desktop", "label": "PC" }
+        {
+          "icon": "fa-solid fa-crosshairs",
+          "label": "Silent Aim"
+        },
+        {
+          "icon": "fa-solid fa-cube",
+          "label": "Hitbox"
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "label": "ESP"
+        },
+        {
+          "icon": "fa-solid fa-mobile-screen",
+          "label": "Mobile"
+        },
+        {
+          "icon": "fa-solid fa-desktop",
+          "label": "PC"
+        }
       ],
       "features": [
         "Silent Aim & Camlock (FOV Slider, Head/Torso)",
@@ -67,21 +140,36 @@
     {
       "id": "sailueat-archiwa",
       "name": "สายเลือดอาชีวะ (Sailueat Archiwa)",
-      "placeId": 17300701837,
+      "placeId": 131481383443764,
       "status": "operational",
       "statusText": "ออนไลน์ / พร้อมใช้งาน",
       "category": "Action / RPG",
       "icon": "⚔️",
-      "image": "/games/sailueat-archiwa.png",
+      "image": "https://tr.rbxcdn.com/180DAY-a943002d05eb3c037d53e192970c14c4/256/256/Image/Png/noFilter",
       "badge": "Popular ⭐",
       "version": "v1.8.5",
       "discord": "https://discord.gg/vvkVDYeuhn",
       "badges": [
-        { "icon": "fa-solid fa-hand-fist", "label": "Fast Attack" },
-        { "icon": "fa-solid fa-sack-dollar", "label": "Bag Exploit" },
-        { "icon": "fa-solid fa-shield-halved", "label": "Bypass" },
-        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
-        { "icon": "fa-solid fa-desktop", "label": "PC" }
+        {
+          "icon": "fa-solid fa-hand-fist",
+          "label": "Fast Attack"
+        },
+        {
+          "icon": "fa-solid fa-sack-dollar",
+          "label": "Bag Exploit"
+        },
+        {
+          "icon": "fa-solid fa-shield-halved",
+          "label": "Bypass"
+        },
+        {
+          "icon": "fa-solid fa-mobile-screen",
+          "label": "Mobile"
+        },
+        {
+          "icon": "fa-solid fa-desktop",
+          "label": "PC"
+        }
       ],
       "features": [
         "Legit Auto Farm (Exp, Level, Items)",
@@ -105,11 +193,26 @@
       "version": "v2.5.0",
       "discord": "https://discord.gg/vvkVDYeuhn",
       "badges": [
-        { "icon": "fa-solid fa-water", "label": "Universal" },
-        { "icon": "fa-solid fa-key", "label": "Platoboost" },
-        { "icon": "fa-solid fa-bolt", "label": "60 FPS" },
-        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
-        { "icon": "fa-solid fa-desktop", "label": "PC" }
+        {
+          "icon": "fa-solid fa-water",
+          "label": "Universal"
+        },
+        {
+          "icon": "fa-solid fa-key",
+          "label": "Platoboost"
+        },
+        {
+          "icon": "fa-solid fa-bolt",
+          "label": "60 FPS"
+        },
+        {
+          "icon": "fa-solid fa-mobile-screen",
+          "label": "Mobile"
+        },
+        {
+          "icon": "fa-solid fa-desktop",
+          "label": "PC"
+        }
       ],
       "features": [
         "Platoboost Key System (Auto Verify & Save Key)",
@@ -132,11 +235,26 @@
       "version": "In Development",
       "discord": "https://discord.gg/vvkVDYeuhn",
       "badges": [
-        { "icon": "fa-solid fa-car", "label": "Car Boost" },
-        { "icon": "fa-solid fa-house-chimney-user", "label": "Unlocker" },
-        { "icon": "fa-solid fa-plane", "label": "Fly/Noclip" },
-        { "icon": "fa-solid fa-mobile-screen", "label": "Mobile" },
-        { "icon": "fa-solid fa-clock", "label": "Soon" }
+        {
+          "icon": "fa-solid fa-car",
+          "label": "Car Boost"
+        },
+        {
+          "icon": "fa-solid fa-house-chimney-user",
+          "label": "Unlocker"
+        },
+        {
+          "icon": "fa-solid fa-plane",
+          "label": "Fly/Noclip"
+        },
+        {
+          "icon": "fa-solid fa-mobile-screen",
+          "label": "Mobile"
+        },
+        {
+          "icon": "fa-solid fa-clock",
+          "label": "Soon"
+        }
       ],
       "features": [
         "Troll GUI & Car Speed Boost",
