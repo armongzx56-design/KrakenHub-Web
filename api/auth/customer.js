@@ -10,6 +10,9 @@ module.exports = (req, res) => {
   const state = Buffer.from(JSON.stringify({ next })).toString('base64url');
   const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify&state=${state}`;
 
+  if (typeof res.redirect === 'function') {
+    return res.redirect(302, discordAuthUrl);
+  }
   res.writeHead(302, { Location: discordAuthUrl });
   res.end();
 };

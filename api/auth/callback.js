@@ -66,10 +66,18 @@ module.exports = async (req, res) => {
     } catch (e) {}
   }
 
-  if (!code) {
-    res.writeHead(302, { Location: '/login?error=no_code' });
+  function safeRedirect(targetUrl, cookieHeader) {
+    if (cookieHeader) {
+      if (typeof res.setHeader === 'function') res.setHeader('Set-Cookie', cookieHeader);
+      else res.writeHead(302, { 'Set-Cookie': cookieHeader, 'Location': targetUrl });
+    }
+    if (typeof res.redirect === 'function') return res.redirect(302, targetUrl);
+    if (!res.headersSent) res.writeHead(302, { Location: targetUrl });
     res.end();
-    return;
+  }
+
+  if (!code) {
+    return safeRedirect('/login?error=no_code');
   }
 
   try {
@@ -83,16 +91,12 @@ module.exports = async (req, res) => {
 
     if (!tokenRes.access_token) {
       console.error('Failed to get Discord token:', tokenRes);
-      res.writeHead(302, { Location: '/login?error=auth_failed' });
-      res.end();
-      return;
+      return safeRedirect('/login?error=auth_failed');
     }
 
     const user = await getJson('https://discord.com/api/users/@me', tokenRes.access_token);
     if (!user || !user.id) {
-      res.writeHead(302, { Location: '/login?error=user_fetch_failed' });
-      res.end();
-      return;
+      return safeRedirect('/login?error=user_fetch_failed');
     }
 
     // Build session data
@@ -108,15 +112,10 @@ module.exports = async (req, res) => {
     const sig = crypto.createHmac('sha256', SECRET_KEY).update(sessionStr).digest('hex');
     const cookieVal = Buffer.from(JSON.stringify({ data: sessionObj, sig })).toString('base64url');
 
-    res.writeHead(302, {
-      'Set-Cookie': `kraken_session=${cookieVal}; Path=/; HttpOnly; SameSite=Lax; Max-Age=2592000`,
-      'Location': next
-    });
-    res.end();
+    safeRedirect(next, `kraken_session=${cookieVal}; Path=/; HttpOnly; SameSite=Lax; Max-Age=2592000`);
   } catch (err) {
     console.error('OAuth Callback Error:', err.message);
-    res.writeHead(302, { Location: '/login?error=server_error' });
-    res.end();
+    safeRedirect('/login?error=server_error');
   }
 };
 
