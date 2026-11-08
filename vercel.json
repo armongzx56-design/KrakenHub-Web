@@ -1,13 +1,4 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/api/public/site", "destination": "/api/site.js" },
-    { "source": "/api/public/live", "destination": "/api/live.js" },
-    { "source": "/api/shop/plans", "destination": "/api/plans.js" },
-    { "source": "/api/shop/session", "destination": "/api/session.js" },
-    { "source": "/api/shop/me", "destination": "/api/session.js" },
-    { "source": "/api/status", "destination": "/api/status.js" },
-    { "source": "/api/games", "destination": "/api/games.js" }
-  ]
+  "cleanUrls": true
 }

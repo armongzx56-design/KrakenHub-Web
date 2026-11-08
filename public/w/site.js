@@ -161,7 +161,19 @@ $("#yr").textContent = new Date().getFullYear();
 
 /* ---------- shared data ---------- */
 let SITE = null;
-async function loadSite() { SITE = await getJSON("/api/public/site"); return SITE; }
+async function loadSite() {
+  const endpoints = ["/api/public/site", "/api/site", "/data/site.json", "/api/public/site.json"];
+  for (const ep of endpoints) {
+    try {
+      const data = await getJSON(ep);
+      if (data && data.maps && data.maps.length) {
+        SITE = data;
+        return SITE;
+      }
+    } catch (e) {}
+  }
+  return SITE;
+}
 function applySite() {
   if (!SITE) return;
   const dc = SITE.settings.discord;
@@ -196,7 +208,7 @@ function mapCard(m, delay) {
 
 /* ---------- live poller ---------- */
 function pollLive(cb, ms = 8000) {
-  const go = async () => { try { cb(await getJSON("/api/public/live")); } catch {} };
+  const go = async () => { try { cb(await getJSON("/api/public/live")); } catch { try { cb(await getJSON("/api/live")); } catch {} } };
   go(); setInterval(() => { if (!document.hidden) go(); }, ms);
 }
 
