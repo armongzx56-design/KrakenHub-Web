@@ -30,10 +30,15 @@ module.exports = (req, res) => {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
   if (req.method === 'OPTIONS') {
-    res.status(204).end();
-    return;
+    if (typeof res.status === 'function') return res.status(204).end();
+    res.writeHead(204);
+    return res.end();
   }
 
-  res.status(200).json(getPlansData());
+  const data = getPlansData();
+  if (typeof res.status === 'function' && typeof res.json === 'function') {
+    return res.status(200).json(data);
+  }
+  res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+  res.end(JSON.stringify(data));
 };
-

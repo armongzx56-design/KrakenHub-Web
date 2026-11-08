@@ -1,4 +1,8 @@
 {
   "version": 2,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/auth/customer", "destination": "/api/auth/customer.js" },
+    { "source": "/auth/discord/callback", "destination": "/api/auth/callback.js" }
+  ]
 }

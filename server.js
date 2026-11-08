@@ -105,9 +105,24 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Discord OAuth2 & Auth routes
+    if (pathname === '/auth/customer' || pathname === '/api/auth/customer') {
+        require('./api/auth/customer.js')(req, res);
+        return;
+    }
+
+    if (pathname === '/api/auth/callback' || pathname === '/auth/discord/callback') {
+        require('./api/auth/callback.js')(req, res);
+        return;
+    }
+
+    if (pathname === '/api/shop/logout') {
+        require('./api/shop/logout.js')(req, res);
+        return;
+    }
+
     if (pathname === '/api/shop/session' || pathname === '/api/shop/me') {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ authed: false, user: null, guest: true }));
+        require('./api/shop/session.js')(req, res);
         return;
     }
 
