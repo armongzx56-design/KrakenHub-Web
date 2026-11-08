@@ -22,11 +22,10 @@ function getLiveData() {
       { lat: 8.1, lon: 98.9, count: 2 }
     ],
     top: [
-      { name: "MAHANAKHON RACING", online: 5 },
-      { name: "Urban Reload", online: 4 },
-      { name: "I Sailueatarchiwa", online: 2 },
-      { name: "Blox Fruits", online: 2 },
-      { name: "Blade Ball", online: 1 }
+      { name: "มหาลัยชาวร็อค (Mahalair Chaorock)", online: 6 },
+      { name: "Urban Reload", online: 5 },
+      { name: "MAHANAKHON RACING", online: 4 },
+      { name: "สายเลือดอาชีวะ (Lineage I)", online: 3 }
     ]
   };
 }
