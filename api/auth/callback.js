@@ -51,10 +51,10 @@ function getJson(targetUrl, token) {
 }
 
 module.exports = async (req, res) => {
-  const CLIENT_ID = process.env.DISCORD_CLIENT_ID || '';
-  const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET || '';
+  const CLIENT_ID = process.env.DISCORD_CLIENT_ID || '1554520200848875611';
+  const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET || 'XR42GDutbCq3rfdfnwOVDooK6oBY4KJ6';
   const REDIRECT_URI = process.env.DISCORD_REDIRECT_URI || 'https://krakenhub-three.vercel.app/api/auth/callback';
-  const SECRET_KEY = process.env.SESSION_SECRET || 'krakenhub-secret-key-2026';
+  const SECRET_KEY = process.env.SESSION_SECRET || 'krakenhub-secret-key-2026-dj-bench';
 
   const parsed = url.parse(req.url, true);
   const code = parsed.query.code;
@@ -119,3 +119,4 @@ module.exports = async (req, res) => {
     res.end();
   }
 };
+

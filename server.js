@@ -144,7 +144,7 @@ const server = http.createServer((req, res) => {
             pending: false,
             blocked: false,
             user: null,
-            redirectUri: "/auth/discord/callback",
+            redirectUri: "https://krakenhub-three.vercel.app/api/auth/callback",
             onRailway: false,
             volume: true,
             uptime: Math.floor(process.uptime()),
