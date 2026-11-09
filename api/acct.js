@@ -354,3 +354,4 @@ module.exports = async function handleAccountsApi(req, res, pathname, query = {}
 
     return sendJson(res, 404, { ok: false, error: 'Endpoint not found' });
 };
+

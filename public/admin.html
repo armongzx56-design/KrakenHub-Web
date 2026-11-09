@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KrakenHub | Admin Control Console</title>
     <meta name="robots" content="noindex, nofollow, noarchive">
-    <link rel="icon" type="image/png" href="/favicon-32.png?v=3">
+    <link rel="icon" type="image/png" href="/favicon-32.png?v=4">
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -531,7 +531,7 @@
     <!-- Header -->
     <header>
         <a href="/" target="_blank" class="header-brand">
-            <img src="/favicon-32.png?v=3" alt="Logo">
+            <img src="/favicon-32.png?v=4" alt="Logo">
             <div class="brand-text">
                 <h1>KrakenHub Admin</h1>
                 <span>Console v2.5.0 • Private Area</span>
@@ -558,7 +558,7 @@
         <!-- 1. LOGIN SCREEN -->
         <section id="login-view">
             <div class="glass login-box">
-                <img src="/favicon-32.png?v=3" alt="Logo">
+                <img src="/favicon-32.png?v=4" alt="Logo">
                 <h2>เข้าสู่ระบบผู้ดูแลระบบ</h2>
                 <p>ส่วนควบคุมหลังบ้าน KrakenHub (เฉพาะแอดมินเท่านั้น)</p>
 
@@ -985,13 +985,13 @@
             tbody.innerHTML = maps.map(m => {
                 const statusClass = `status-${m.status || 'operational'}`;
                 const placeId = (m.ids && m.ids[0]) ? m.ids[0] : '-';
-                const thumb = m.thumb || '/favicon-32.png?v=3';
+                const thumb = m.thumb || '/favicon-32.png?v=4';
 
                 return `
                     <tr>
                         <td>
                             <div class="game-cell">
-                                <img src="${thumb}" class="game-thumb" onerror="this.src='/favicon-32.png?v=3'">
+                                <img src="${thumb}" class="game-thumb" onerror="this.src='/favicon-32.png?v=4'">
                                 <div>
                                     <div class="game-title">${m.name}</div>
                                     <div class="game-sub">${m.key || ''}</div>
@@ -1221,7 +1221,7 @@
             const status = document.getElementById('modal-game-status').value;
             const msg = document.getElementById('modal-game-msg').value.trim();
             const cat = document.getElementById('modal-game-cat').value.trim() || 'General';
-            const thumb = document.getElementById('modal-game-thumb').value.trim() || '/favicon-32.png?v=3';
+            const thumb = document.getElementById('modal-game-thumb').value.trim() || '/favicon-32.png?v=4';
             const features = document.getElementById('modal-game-features').value.split('\n').map(s => s.trim()).filter(Boolean);
 
             const mapObj = {
