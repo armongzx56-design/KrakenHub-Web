@@ -53,22 +53,34 @@
     if (srcT) { try { new MutationObserver(syncLang).observe(srcT, { childList: true, characterData: true, subtree: true }); } catch (e) {} }
   });
 
-  /* ---------- ผู้ใช้ที่มีคีย์ใช้งานอยู่: ปุ่มหลักเปลี่ยนเป็น "คีย์ของฉัน" (ข้อมูลจริงจาก /api/shop/session) ---------- */
+  /* ---------- บังคับล็อกอิน Discord: ตรวจสอบสถานะ session ---------- */
   var main = document.getElementById("lp-main");
-  if (main && window.fetch) {
+  var gate = document.getElementById("dc-gate");
+  document.body.classList.add("gate-locked");
+
+  if (window.fetch) {
     fetch("/api/shop/session", { credentials: "same-origin", cache: "no-store" })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
-        if (!d || !d.authed || d.banned || !(d.activeKeys > 0)) return;
-        var span = main.querySelector("span"), I = window.I18N;
-        if (!span || !I || !I.th || !I.en) return;
-        var cur = span.textContent.trim();
-        var lang = cur === I.en["acct.free"] ? "en" : "th";
-        main.setAttribute("href", "/me");
-        span.setAttribute("data-i", "lp.mykeys");
-        span.textContent = I[lang]["lp.mykeys"] || span.textContent;
+        if (d && d.authed && !d.banned) {
+          // ผู้ใช้ล็อกอินแล้ว: ปลดล็อก popup และแสดงปุ่มเข้าสู่ระบบ
+          document.body.classList.remove("gate-locked");
+          if (gate) gate.style.display = "none";
+          if (main) {
+            main.setAttribute("href", "/maps");
+            main.className = "lp-btn lp-btn-main";
+            var userName = (d.user && d.user.name) ? d.user.name : "สมาชิก";
+            main.innerHTML = '<svg aria-hidden="true" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span>เข้าสู่หน้าหลัก (' + userName + ')</span>';
+          }
+        } else {
+          document.body.classList.add("gate-locked");
+          if (gate) gate.style.display = "flex";
+        }
       })
-      .catch(function () {});
+      .catch(function () {
+        document.body.classList.add("gate-locked");
+        if (gate) gate.style.display = "flex";
+      });
   }
 
   /* ---------- จางออกก่อนเปลี่ยนหน้า ---------- */

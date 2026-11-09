@@ -185,6 +185,30 @@
   @keyframes lp-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 }
 
+/* Popup Discord Force Login */
+.dc-gate-overlay{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;background:rgba(4,6,14,.76);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:20px;animation:dcFadeIn .35s ease forwards}
+.dc-gate-card{position:relative;width:100%;max-width:440px;background:rgba(14,20,34,.92);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(88,101,242,.45);border-radius:24px;padding:32px 28px 28px;text-align:center;color:#f8fafc;box-shadow:0 30px 70px rgba(0,0,0,.8),0 0 50px rgba(88,101,242,.25);transform:translateY(0);animation:dcPopUp .4s cubic-bezier(.16,1,.3,1) forwards}
+.dc-gate-icon{width:64px;height:64px;margin:0 auto 18px;border-radius:20px;background:rgba(88,101,242,.15);border:1px solid rgba(88,101,242,.4);display:grid;place-items:center;box-shadow:0 0 25px rgba(88,101,242,.35)}
+.dc-gate-title{font-size:22px;font-weight:700;margin-bottom:8px;letter-spacing:.3px;color:#ffffff}
+.dc-gate-desc{font-size:13.5px;color:rgba(248,250,252,.75);line-height:1.6;margin-bottom:20px}
+.dc-gate-perks{display:flex;flex-direction:column;gap:10px;text-align:left;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 14px;margin-bottom:22px}
+.dc-perk{display:flex;align-items:center;gap:12px}
+.dc-perk-icon{font-size:18px;width:28px;height:28px;border-radius:8px;background:rgba(88,101,242,.2);display:grid;place-items:center;flex:none}
+.dc-perk-text b{display:block;font-size:13px;color:#f8fafc;font-weight:600}
+.dc-perk-text small{display:block;font-size:11.5px;color:rgba(248,250,252,.6)}
+.dc-gate-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;height:52px;border-radius:14px;background:#5865F2;color:#ffffff;font-size:15.5px;font-weight:600;text-decoration:none;box-shadow:0 12px 30px -8px rgba(88,101,242,.7),0 0 20px rgba(88,101,242,.35);transition:all .25s ease}
+.dc-gate-btn:hover{background:#4752C4;box-shadow:0 16px 36px -8px rgba(88,101,242,.9),0 0 30px rgba(88,101,242,.5);transform:translateY(-2px)}
+.dc-gate-safe{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:rgba(248,250,252,.55);margin-top:14px}
+@keyframes dcFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes dcPopUp{from{opacity:0;transform:scale(.92) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+/* เบลอพื้นหลังและโลโก้เมื่อยังไม่ล็อกอิน */
+body.gate-locked .lp-stage{filter:blur(8px) brightness(.65);transform:scale(.96);transition:filter .5s ease,transform .5s ease}
+body.gate-locked .lp-cta{filter:blur(4px);opacity:.35;pointer-events:none}
+
+.lp-btn-discord{background:#5865F2;color:#ffffff;min-width:260px;box-shadow:0 14px 35px -10px rgba(88,101,242,.65),0 0 20px rgba(88,101,242,.35);font-weight:600;border:1px solid rgba(255,255,255,.2)}
+.lp-btn-discord:hover{background:#4752C4;box-shadow:0 18px 42px -10px rgba(88,101,242,.85),0 0 28px rgba(88,101,242,.5);transform:translateY(-2px)}
+
 @media (min-width:560px){.lp-cta{flex-direction:row;flex-wrap:wrap;justify-content:center;max-width:100%;width:auto}.lp-btn{min-width:170px}.lp-in{max-width:600px}}
 @media (max-height:620px){.lp-legal{position:static;margin-top:18px}.lp{padding-bottom:20px}.lp-cta{flex-direction:row;flex-wrap:wrap;justify-content:center;width:100%}.lp-btn{height:48px;flex:1 1 150px}}
 </style>
@@ -196,9 +220,10 @@
     <h1 class="sr">KrakenHub</h1>
     <div class="lp-stage"><div class="lp-mark" id="lp-mark" role="img" aria-label="KrakenHub"><i class="lp-base"></i><i class="lp-glow"></i></div></div>
     <div class="lp-cta lp-seq" style="--n:0">
-      <a class="lp-btn lp-btn-main" id="lp-main" href="/key"><svg aria-hidden="true"><use href="#i-key"/></svg><span data-i="acct.free">รับคีย์ฟรี</span></a>
-      <a class="lp-btn lp-btn-alt" href="/get"><svg aria-hidden="true"><use href="#i-terminal"/></svg><span data-i="lp.get">รับสคริปต์</span></a>
-      <a class="lp-btn lp-btn-alt" href="/buy"><svg aria-hidden="true"><use href="#i-bag"/></svg><span data-i="lp.buy">ซื้อคีย์</span></a>
+      <a class="lp-btn lp-btn-discord" id="lp-main" href="/auth/customer">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+        <span>เข้าสู่ระบบด้วย Discord</span>
+      </a>
     </div>
   </div>
   <div class="lp-legal lp-seq" style="--n:1">
@@ -206,8 +231,46 @@
     <span data-i="foot.note">KrakenHub ไม่ได้มีส่วนเกี่ยวข้องกับ Roblox Corporation</span>
   </div>
 </section>
+
+<!-- Force Discord Login Popup Modal -->
+<div class="dc-gate-overlay" id="dc-gate" style="display: flex;">
+  <div class="dc-gate-card">
+    <div class="dc-gate-icon">
+      <svg viewBox="0 0 24 24" width="34" height="34" fill="#5865F2" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+    </div>
+    <h2 class="dc-gate-title">จำเป็นต้องเข้าสู่ระบบ</h2>
+    <p class="dc-gate-desc">กรุณาเข้าสู่ระบบด้วยบัญชี <b>Discord</b> ของคุณ เพื่อยืนยันตัวตนและเข้าถึงศูนย์รวมสคริปต์ KrakenHub</p>
+
+    <div class="dc-gate-perks">
+      <div class="dc-perk">
+        <span class="dc-perk-icon">⚡</span>
+        <div class="dc-perk-text">
+          <b>รับสคริปต์ & คีย์ฟรี</b>
+          <small>สคริปต์อัปเดตใหม่ทุกวัน ฟาร์มเงินเสถียร</small>
+        </div>
+      </div>
+      <div class="dc-perk">
+        <span class="dc-perk-icon">📊</span>
+        <div class="dc-perk-text">
+          <b>ระบบตรวจสอบเงินฟาร์ม (Account Tracker)</b>
+          <small>ดูสถิติและยอดเงินในเกม Roblox Realtime</small>
+        </div>
+      </div>
+    </div>
+
+    <a href="/auth/customer" class="dc-gate-btn" id="dc-gate-login">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+      <span>เข้าสู่ระบบด้วย Discord</span>
+    </a>
+
+    <div class="dc-gate-safe">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>ปลอดภัย 100% • เข้าสู่ระบบผ่าน Discord OAuth2 Official</span>
+    </div>
+  </div>
+</div>
 </main>
-<script src="/w/lp.js"></script>
+<script src="/w/lp.js?v=2"></script>
 <footer class="foot">
   <div class="wrap foot-in">
     <div class="foot-brand">
