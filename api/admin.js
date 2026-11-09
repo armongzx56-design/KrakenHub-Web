@@ -166,6 +166,10 @@ function callBotHosting(path, method = 'GET', body = null) {
 
 // Master Handler for all /api/admin/* routes
 module.exports = async function handleAdminApi(req, res, pathname) {
+    if (!pathname) {
+        const u = require('url').parse(req.url, true);
+        pathname = u.pathname.replace(/\/+$/, '');
+    }
     const cookies = parseCookies(req.headers.cookie);
     const token = cookies.kraken_admin_token || (req.headers['authorization'] ? req.headers['authorization'].replace(/^Bearer\s+/i, '') : null);
     const session = verifySessionToken(token);

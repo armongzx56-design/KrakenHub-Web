@@ -55,6 +55,11 @@ function sendJson(res, status, data) {
 }
 
 module.exports = async function handleAccountsApi(req, res, pathname, query = {}) {
+    if (!pathname) {
+        const u = require('url').parse(req.url, true);
+        pathname = u.pathname.replace(/\/+$/, '');
+        query = u.query || {};
+    }
     const db = readAccountsData();
     const now = Date.now();
 

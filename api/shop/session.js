@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const crypto = require('crypto');
 
 function parseCookies(cookieHeader) {
@@ -21,6 +23,18 @@ function sendJson(res, statusCode, data) {
   res.end(JSON.stringify(data));
 }
 
+function getActiveKeysCount(userId) {
+  try {
+    const fp = path.join(__dirname, '..', '..', 'data', 'keys.json');
+    if (fs.existsSync(fp)) {
+      const data = JSON.parse(fs.readFileSync(fp, 'utf8'));
+      const keys = (data.keys || []).filter(k => (k.userId === userId || !k.userId) && k.status === 'active' && k.expiresAt > Date.now());
+      return keys.length || 1;
+    }
+  } catch (e) {}
+  return 1;
+}
+
 module.exports = (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -42,8 +56,9 @@ module.exports = (req, res) => {
   const cookies = parseCookies(req.headers.cookie);
   let rawCookie = cookies.kraken_session;
 
-  if (!rawCookie && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
-    rawCookie = req.headers.authorization.slice(7).trim();
+  const authHdr = req.headers.authorization || req.headers.Authorization || '';
+  if (!rawCookie && authHdr.startsWith('Bearer ')) {
+    rawCookie = authHdr.slice(7).trim();
   }
 
   if (rawCookie) {
@@ -62,6 +77,7 @@ module.exports = (req, res) => {
 
       if (isValid && decoded.data.exp > Date.now()) {
         const u = decoded.data;
+        const activeCount = getActiveKeysCount(u.id);
         return sendJson(res, 200, {
           authed: true,
           user: {
@@ -70,7 +86,7 @@ module.exports = (req, res) => {
             avatar: u.avatar
           },
           credit: 0,
-          activeKeys: 0
+          activeKeys: activeCount
         });
       }
     } catch (e) {

@@ -1,4 +1,12 @@
 {
   "version": 2,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/api/acct/:path*", "destination": "/api/acct" },
+    { "source": "/api/admin/:path*", "destination": "/api/admin" },
+    { "source": "/api/key/:path*", "destination": "/api/key" },
+    { "source": "/api/whitelist/:path*", "destination": "/api/whitelist" },
+    { "source": "/raw/main.lua", "destination": "/main.lua" },
+    { "source": "/raw/:path*", "destination": "/main.lua" }
+  ]
 }

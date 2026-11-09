@@ -121,8 +121,8 @@ function getSiteData() {
     t: Date.now(),
     settings: {
       discord: "https://discord.gg/vvkVDYeuhn",
-      getUrl: "https://www.rvxhub.site/raw/cca31b760609d8fc/main.lua",
-      loadstring: 'loadstring(game:HttpGet("https://www.rvxhub.site/raw/cca31b760609d8fc/main.lua"))()',
+      getUrl: "https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/KrakenHub_Loader.luau",
+      loadstring: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/armongzx56-design/KrakenHub/main/KrakenHub_Loader.luau"))()',
       announce: null
     },
     maps: DEFAULT_MAPS,

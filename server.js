@@ -128,9 +128,32 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    if (pathname === '/api/shop/session' || pathname === '/api/shop/me') {
+    if (pathname === '/api/shop/session') {
         require('./api/shop/session.js')(req, res);
         return;
+    }
+
+    if (pathname === '/api/shop/me') {
+        require('./api/shop/me.js')(req, res);
+        return;
+    }
+
+    if (pathname.startsWith('/api/key')) {
+        require('./api/key.js')(req, res);
+        return;
+    }
+
+    if (pathname.startsWith('/api/whitelist')) {
+        require('./api/whitelist.js')(req, res);
+        return;
+    }
+
+    if (pathname === '/main.lua' || pathname === '/loader.luau' || pathname.startsWith('/raw/')) {
+        const fp = path.join(PUBLIC_DIR, 'main.lua');
+        if (fs.existsSync(fp)) {
+            res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+            return fs.createReadStream(fp).pipe(res);
+        }
     }
 
     if (pathname === '/api/status') {
