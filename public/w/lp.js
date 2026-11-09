@@ -57,34 +57,54 @@
   var main = document.getElementById("lp-main");
   var gate = document.getElementById("dc-gate");
 
+  function unlockUI(user) {
+    if (gate) {
+      gate.classList.remove("on");
+      gate.style.display = "none";
+    }
+    if (main) {
+      main.setAttribute("href", "/maps");
+      main.innerHTML = '<svg class="i" style="width:19px;height:19px;" aria-hidden="true"><use href="#i-terminal"/></svg><span>เข้าสู่ศูนย์รวมสคริปต์</span>';
+    }
+  }
+
+  function lockUI() {
+    if (gate) {
+      gate.style.display = "grid";
+      gate.classList.add("on");
+    }
+    if (main) {
+      main.setAttribute("href", "/auth/customer");
+      main.innerHTML = '<svg class="i" style="width:19px;height:19px;" aria-hidden="true"><use href="#i-chat"/></svg><span>เข้าสู่ระบบด้วย Discord</span>';
+    }
+  }
+
+  var token = null;
+  try { token = localStorage.getItem("kraken_token"); } catch(e){}
+  var fetchHeaders = token ? { "Authorization": "Bearer " + token } : {};
+
   if (window.fetch) {
-    fetch("/api/shop/session", { credentials: "same-origin", cache: "no-store" })
+    fetch("/api/shop/session", { credentials: "same-origin", headers: fetchHeaders, cache: "no-store" })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
         if (d && d.authed && !d.banned) {
-          // ผู้ใช้ล็อกอินแล้ว: ปิด dialog popup
-          if (gate) {
-            gate.classList.remove("on");
-            gate.style.display = "none";
-          }
-          if (main) {
-            main.setAttribute("href", "/maps");
-            var userName = (d.user && d.user.name) ? d.user.name : "สมาชิก";
-            main.innerHTML = '<svg class="i" style="width:19px;height:19px;" aria-hidden="true"><use href="#i-terminal"/></svg><span>เข้าสู่ศูนย์รวมสคริปต์</span>';
-          }
+          try {
+            if (d.user) localStorage.setItem("kraken_user", JSON.stringify(d.user));
+          } catch(e){}
+          unlockUI(d.user);
         } else {
-          // ยังไม่ได้ล็อกอิน: แสดง popup กลางจอ
-          if (gate) {
-            gate.style.display = "grid";
-            gate.classList.add("on");
+          if (token && (!d || !d.authed)) {
+            try { localStorage.removeItem("kraken_token"); localStorage.removeItem("kraken_user"); } catch(e){}
           }
+          lockUI();
         }
       })
       .catch(function () {
-        if (gate) {
-          gate.style.display = "grid";
-          gate.classList.add("on");
-        }
+        try {
+          var u = JSON.parse(localStorage.getItem("kraken_user") || "null");
+          if (u && u.id) { unlockUI(u); return; }
+        } catch(e){}
+        lockUI();
       });
   }
 

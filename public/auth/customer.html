@@ -6,7 +6,7 @@
 <title>เข้าสู่ระบบด้วย Discord | KrakenHub</title>
 <script>
 (function() {
-  var q = new URLSearchParams(location.search).get("next") || "/me";
+  var q = new URLSearchParams(location.search).get("next") || "/";
   var CLIENT_ID = "1554520200848875611";
   var REDIRECT_URI = "https://krakenhub-three.vercel.app/api/auth/callback";
   var state = btoa(JSON.stringify({ next: q })).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
@@ -60,4 +60,3 @@ p {
 </div>
 </body>
 </html>
-

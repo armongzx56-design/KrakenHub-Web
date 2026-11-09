@@ -21,7 +21,11 @@ const nextPath = () => { const p = location.pathname.replace(/\/+$/, "") || "/";
 const loginHref = () => "/login?next=" + encodeURIComponent(nextPath());
 
 async function api(url, method, body) {
-  const r = await fetch(url, { method: method || "GET", headers: body ? { "Content-Type": "application/json" } : {}, body: body ? JSON.stringify(body) : undefined, credentials: "same-origin", cache: "no-store" });
+  let token = null;
+  try { token = localStorage.getItem("kraken_token"); } catch(e){}
+  const headers = body ? { "Content-Type": "application/json" } : {};
+  if (token) headers["Authorization"] = "Bearer " + token;
+  const r = await fetch(url, { method: method || "GET", headers: headers, body: body ? JSON.stringify(body) : undefined, credentials: "same-origin", cache: "no-store" });
   const d = await r.json().catch(() => ({}));
   if (!r.ok) { const e = new Error(d.error || t("err.generic")); e.status = r.status; e.data = d; throw e; }
   return d;
@@ -132,6 +136,7 @@ document.addEventListener("click", async e => {
   const out = e.target.closest("#acct-out,#me-out");
   if (out) {
     out.disabled = true;
+    try { localStorage.removeItem("kraken_token"); localStorage.removeItem("kraken_user"); } catch(e){}
     try { await api("/api/shop/logout", "POST", {}); } catch {}
     location.href = location.pathname === "/me" ? "/buy" : location.pathname + location.search;
     return;
