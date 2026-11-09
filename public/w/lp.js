@@ -56,30 +56,35 @@
   /* ---------- บังคับล็อกอิน Discord: ตรวจสอบสถานะ session ---------- */
   var main = document.getElementById("lp-main");
   var gate = document.getElementById("dc-gate");
-  document.body.classList.add("gate-locked");
 
   if (window.fetch) {
     fetch("/api/shop/session", { credentials: "same-origin", cache: "no-store" })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
         if (d && d.authed && !d.banned) {
-          // ผู้ใช้ล็อกอินแล้ว: ปลดล็อก popup และแสดงปุ่มเข้าสู่ระบบ
-          document.body.classList.remove("gate-locked");
-          if (gate) gate.style.display = "none";
+          // ผู้ใช้ล็อกอินแล้ว: ปิด dialog popup
+          if (gate) {
+            gate.classList.remove("on");
+            gate.style.display = "none";
+          }
           if (main) {
             main.setAttribute("href", "/maps");
-            main.className = "lp-btn lp-btn-main";
             var userName = (d.user && d.user.name) ? d.user.name : "สมาชิก";
-            main.innerHTML = '<svg aria-hidden="true" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M5 12h14M12 5l7 7-7 7"/></svg><span>เข้าสู่หน้าหลัก (' + userName + ')</span>';
+            main.innerHTML = '<svg class="i" style="width:19px;height:19px;" aria-hidden="true"><use href="#i-terminal"/></svg><span>เข้าสู่ศูนย์รวมสคริปต์</span>';
           }
         } else {
-          document.body.classList.add("gate-locked");
-          if (gate) gate.style.display = "flex";
+          // ยังไม่ได้ล็อกอิน: แสดง popup กลางจอ
+          if (gate) {
+            gate.style.display = "grid";
+            gate.classList.add("on");
+          }
         }
       })
       .catch(function () {
-        document.body.classList.add("gate-locked");
-        if (gate) gate.style.display = "flex";
+        if (gate) {
+          gate.style.display = "grid";
+          gate.classList.add("on");
+        }
       });
   }
 
