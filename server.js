@@ -176,6 +176,27 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Admin API Routes (Protected)
+    if (pathname.startsWith('/api/admin')) {
+        require('./api/admin.js')(req, res, pathname).catch(err => {
+            console.error('[Admin API Error]', err);
+            res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ ok: false, error: 'Internal Server Error: ' + err.message }));
+        });
+        return;
+    }
+
+    // Account Tracking & Roblox Farm Status API
+    if (pathname.startsWith('/api/acct') || pathname === '/api/report') {
+        const query = parsedUrl.query ? require('querystring').parse(parsedUrl.query) : {};
+        require('./api/acct.js')(req, res, pathname, query).catch(err => {
+            console.error('[Accounts API Error]', err);
+            res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(JSON.stringify({ ok: false, error: 'Internal Server Error: ' + err.message }));
+        });
+        return;
+    }
+
     // ==========================================
     // STATIC FILES & CLEAN URLS
     // ==========================================

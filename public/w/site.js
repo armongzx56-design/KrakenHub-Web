@@ -20,10 +20,10 @@ const t = (k, p) => {
   return s;
 };
 const TITLES = {
-  home: ["RVX Hub | สคริปต์เดียว หลายแมพ", "RVX Hub | One script. Many maps."], maps: ["แมพที่รองรับ | RVX Hub", "Supported maps | RVX Hub"],
-  get: ["รับสคริปต์ | RVX Hub", "Get the script | RVX Hub"], status: ["สถานะระบบ | RVX Hub", "System status | RVX Hub"],
-  updates: ["อัปเดตล่าสุด | RVX Hub", "What's new | RVX Hub"], privacy: ["ความเป็นส่วนตัว | RVX Hub", "Privacy | RVX Hub"],
-  buy: ["ร้านค้า | RVX Hub", "Shop | RVX Hub"], me: ["โปรไฟล์ | RVX Hub", "Profile | RVX Hub"], key: ["รับคีย์ฟรี | RVX Hub", "Free key | RVX Hub"], accounts: ["บัญชีของฉัน | RVX Hub", "My accounts | RVX Hub"], 404: ["ไม่พบหน้านี้ | RVX Hub", "Page not found | RVX Hub"]
+  home: ["KrakenHub | สคริปต์เดียว หลายแมพ", "KrakenHub | One script. Many maps."], maps: ["แมพที่รองรับ | KrakenHub", "Supported maps | KrakenHub"],
+  get: ["รับสคริปต์ | KrakenHub", "Get the script | KrakenHub"], status: ["สถานะระบบ | KrakenHub", "System status | KrakenHub"],
+  updates: ["อัปเดตล่าสุด | KrakenHub", "What's new | KrakenHub"], privacy: ["ความเป็นส่วนตัว | KrakenHub", "Privacy | KrakenHub"],
+  buy: ["ร้านค้า | KrakenHub", "Shop | KrakenHub"], me: ["โปรไฟล์ | KrakenHub", "Profile | KrakenHub"], key: ["รับคีย์ฟรี | KrakenHub", "Free key | KrakenHub"], accounts: ["บัญชีของฉัน | KrakenHub", "My accounts | KrakenHub"], 404: ["ไม่พบหน้านี้ | KrakenHub", "Page not found | KrakenHub"]
 };
 function applyLang() {
   document.documentElement.lang = lang;

@@ -1,0 +1,56 @@
+{
+  "prefs": {
+    "stallMin": 15,
+    "hook": "",
+    "hookSet": false,
+    "lang": "th"
+  },
+  "accounts": [
+    {
+      "id": "318497981",
+      "name": "Arthur_Roblox",
+      "label": "ไอดีหลัก (Main)",
+      "userId": "318497981",
+      "display": "Arthur",
+      "game": "MAHANAKHON RACING",
+      "cover": "/games/mahanakhon-racing.png",
+      "avatar": "https://www.roblox.com/headshot-thumbnail/image?userId=318497981&width=150&height=150&format=png",
+      "tag": "Main",
+      "cur": [
+        {
+          "n": "฿",
+          "v": 3450000,
+          "gain": 450000,
+          "perHour": 180000
+        }
+      ],
+      "stats": {
+        "งานส่งพัสดุสำเร็จ": 128,
+        "รอบฟาร์มเงิน": 240,
+        "ความเร็ว": "320 km/h"
+      },
+      "items": [
+        { "n": "อะไหล่รถซิ่ง", "c": 45, "r": "rare", "img": "/games/mahanakhon-racing.png", "gain": 12 },
+        { "n": "ไนตรัสถังใหญ่", "c": 8, "r": "epic", "img": "/games/mahanakhon-racing.png", "gain": 2 },
+        { "n": "เครื่องยนต์ V8 Supercharge", "c": 1, "r": "legendary", "img": "/games/mahanakhon-racing.png", "gain": 0 }
+      ],
+      "sessionStart": 1794252000000,
+      "sessionMs": 7200000,
+      "last": 1794255755000,
+      "online": true,
+      "state": "online",
+      "hist": [
+        [1794252000000, 3000000],
+        [1794253000000, 3100000],
+        [1794254000000, 3250000],
+        [1794255000000, 3400000],
+        [1794255755000, 3450000]
+      ],
+      "keyTail": "99A1",
+      "top": [
+        { "n": "อะไหล่รถซิ่ง", "c": 45, "r": "rare", "img": "/games/mahanakhon-racing.png" },
+        { "n": "ไนตรัสถังใหญ่", "c": 8, "r": "epic", "img": "/games/mahanakhon-racing.png" }
+      ]
+    }
+  ]
+}

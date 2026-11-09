@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrakenHub | Admin Control Console</title>
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <link rel="icon" type="image/png" href="/favicon-32.png?v=3">
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Kanit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-base: #060913;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --bg-card-hover: rgba(30, 41, 59, 0.85);
+            --border-color: rgba(56, 189, 248, 0.15);
+            --border-highlight: rgba(0, 243, 255, 0.4);
+            --accent-cyan: #00f3ff;
+            --accent-blue: #38bdf8;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glow: 0 0 20px rgba(0, 243, 255, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 243, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.05) 0%, transparent 40%),
+                linear-gradient(180deg, #060913 0%, #03060a 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Classes */
+        .glass {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+        }
+
+        .glass:hover {
+            border-color: var(--border-highlight);
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(6, 9, 19, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .header-brand img {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.4));
+        }
+
+        .brand-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #00f3ff, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-live {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent-green);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .badge-live .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00f3ff, #0284c7);
+            color: #03060a;
+            font-weight: 600;
+            box-shadow: 0 4px 14px rgba(0, 243, 255, 0.25);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.7);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(51, 65, 85, 0.8);
+            border-color: var(--border-highlight);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.25);
+            border-color: var(--accent-red);
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.78rem;
+            border-radius: 6px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* Login Screen */
+        #login-view {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 75vh;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 440px;
+            padding: 36px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .login-box img {
+            width: 72px;
+            height: 72px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 16px rgba(0, 243, 255, 0.5));
+        }
+
+        .login-box h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .login-box p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 12px rgba(0, 243, 255, 0.25);
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn.active {
+            color: #03060a;
+            background: linear-gradient(135deg, #00f3ff, #38bdf8);
+            font-weight: 600;
+            box-shadow: 0 4px 14px rgba(0, 243, 255, 0.25);
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            padding: 18px 20px;
+        }
+
+        .metric-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-main);
+        }
+
+        .metric-sub {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            margin-top: 4px;
+        }
+
+        /* Game Items Table */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .game-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .game-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .game-title {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .game-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-operational {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-maintenance {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-amber);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .status-updating {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .status-offline {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        /* Terminal Logs */
+        .terminal {
+            background: #020408;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: #38bdf8;
+            max-height: 450px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        /* Modal Dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 580px;
+            padding: 28px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .btn-close:hover {
+            color: var(--text-main);
+        }
+
+        /* Notification Toast */
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 110;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="/" target="_blank" class="header-brand">
+            <img src="/favicon-32.png?v=3" alt="Logo">
+            <div class="brand-text">
+                <h1>KrakenHub Admin</h1>
+                <span>Console v2.5.0 • Private Area</span>
+            </div>
+        </a>
+
+        <div class="header-actions" id="header-auth-bar" style="display: none;">
+            <div class="badge-live">
+                <span class="dot"></span>
+                <span id="node-badge">fi18 (Online)</span>
+            </div>
+            <a href="/" target="_blank" class="btn btn-secondary btn-sm">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> ไปหน้าเว็บ
+            </a>
+            <button onclick="handleLogout()" class="btn btn-danger btn-sm">
+                <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- 1. LOGIN SCREEN -->
+        <section id="login-view">
+            <div class="glass login-box">
+                <img src="/favicon-32.png?v=3" alt="Logo">
+                <h2>เข้าสู่ระบบผู้ดูแลระบบ</h2>
+                <p>ส่วนควบคุมหลังบ้าน KrakenHub (เฉพาะแอดมินเท่านั้น)</p>
+
+                <form id="admin-login-form" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <label for="admin-pass"><i class="fa-solid fa-lock"></i> Master Password / Passkey</label>
+                        <input type="password" id="admin-pass" class="input-field" placeholder="กรอกรหัสผ่านแอดมิน..." required autofocus>
+                    </div>
+
+                    <button type="submit" id="btn-login" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
+                        <i class="fa-solid fa-key"></i> ยืนยันตัวตน (Unlock Console)
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 2. MAIN DASHBOARD (HIDDEN UNTIL AUTH) -->
+        <section id="dashboard-view" style="display: none;">
+
+            <!-- Tabs Navigation -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('overview')">
+                    <i class="fa-solid fa-chart-pie"></i> ภาพรวม & คอนโซล
+                </button>
+                <button class="tab-btn" onclick="switchTab('maps')">
+                    <i class="fa-solid fa-gamepad"></i> จัดการสถานะแมพ (<span id="tab-maps-count">0</span>)
+                </button>
+                <button class="tab-btn" onclick="switchTab('settings')">
+                    <i class="fa-solid fa-bullhorn"></i> ประกาศ & ตั้งค่าเว็บ
+                </button>
+                <button class="tab-btn" onclick="switchTab('live')">
+                    <i class="fa-solid fa-users"></i> สถิติสด (Live Stats)
+                </button>
+                <button class="tab-btn" onclick="switchTab('security')">
+                    <i class="fa-solid fa-shield-halved"></i> ความปลอดภัย
+                </button>
+            </div>
+
+            <!-- TAB 1: OVERVIEW -->
+            <div id="tab-overview" class="tab-content">
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="glass metric-card">
+                        <div class="metric-title">
+                            <span>สถานะเซิร์ฟเวอร์</span>
+                            <i class="fa-solid fa-server" style="color: var(--accent-cyan);"></i>
+                        </div>
+                        <div class="metric-value" style="color: var(--accent-green);">ONLINE</div>
+                        <div class="metric-sub" id="stat-uptime">Uptime: 0m</div>
+                    </div>
+
+                    <div class="glass metric-card">
+                        <div class="metric-title">
+                            <span>โหนด & หน่วยความจำ</span>
+                            <i class="fa-solid fa-microchip" style="color: var(--accent-purple);"></i>
+                        </div>
+                        <div class="metric-value" id="stat-mem">-- MB</div>
+                        <div class="metric-sub">Node: fi18.bot-hosting.cloud</div>
+                    </div>
+
+                    <div class="glass metric-card">
+                        <div class="metric-title">
+                            <span>แมพที่รองรับ</span>
+                            <i class="fa-solid fa-layer-group" style="color: var(--accent-blue);"></i>
+                        </div>
+                        <div class="metric-value" id="stat-games">0 / 0</div>
+                        <div class="metric-sub" id="stat-games-sub">ออนไลน์ 100%</div>
+                    </div>
+
+                    <div class="glass metric-card">
+                        <div class="metric-title">
+                            <span>ผู้ใช้งานสด (Live)</span>
+                            <i class="fa-solid fa-signal" style="color: var(--accent-amber);"></i>
+                        </div>
+                        <div class="metric-value" id="stat-online">0</div>
+                        <div class="metric-sub">คนกำลังเปิดใช้งาน Hub</div>
+                    </div>
+                </div>
+
+                <!-- Server Control & Console Logs -->
+                <div class="glass" style="padding: 24px; margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 600;">
+                                <i class="fa-solid fa-terminal" style="color: var(--accent-cyan);"></i> Bot-Hosting Container Logs & Power
+                            </h3>
+                            <p style="font-size: 0.82rem; color: var(--text-muted);">
+                                ดึงข้อมูลสดจาก Bot-Hosting Deployment ID: <code>92cc29e3-ad76-4196-b229-881af54bd7a0</code>
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="fetchBotLogs()" class="btn btn-secondary btn-sm">
+                                <i class="fa-solid fa-rotate-right"></i> รีเฟรช Logs
+                            </button>
+                            <button onclick="triggerRestart()" class="btn btn-danger btn-sm">
+                                <i class="fa-solid fa-power-off"></i> รีสตาร์ทคอนเทนเนอร์
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="terminal" id="terminal-logs">กำลังโหลด Logs จาก Bot-Hosting...</div>
+                </div>
+            </div>
+
+            <!-- TAB 2: MAPS & GAMES -->
+            <div id="tab-maps" class="tab-content" style="display: none;">
+                <div class="glass" style="padding: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="font-size: 1.2rem; font-weight: 600;">รายชื่อแมพและสคริปต์ทั้งหมด</h3>
+                            <p style="font-size: 0.82rem; color: var(--text-muted);">คลิกเปลี่ยนสถานะแมพได้ทันที (Operational / Maintenance / Updating)</p>
+                        </div>
+                        <button onclick="openAddGameModal()" class="btn btn-primary btn-sm">
+                            <i class="fa-solid fa-plus"></i> เพิ่มแมพใหม่ (Add Game)
+                        </button>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>แมพ / ข้อมูล</th>
+                                    <th>Place ID</th>
+                                    <th>สถานะปัจจุบัน</th>
+                                    <th>ข้อความแสดงผล</th>
+                                    <th style="text-align: right;">การจัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="maps-table-body">
+                                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">กำลังโหลดข้อมูล...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: SETTINGS & ANNOUNCEMENT -->
+            <div id="tab-settings" class="tab-content" style="display: none;">
+                <div class="glass" style="padding: 24px; max-width: 800px;">
+                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 6px;">ประกาศ & การตั้งค่าหลักของเว็บ</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 24px;">กำหนดข้อความแจ้งเตือน แบนเนอร์ หรือลิงก์ที่ผู้ใช้เข้าถึง</p>
+
+                    <form onsubmit="handleSaveSettings(event)">
+                        <!-- Global Announcement -->
+                        <div class="input-group">
+                            <label><i class="fa-solid fa-bullhorn" style="color: var(--accent-amber);"></i> ประกาศส่วนหัวเว็บ (Global Announcement Banner)</label>
+                            <input type="text" id="setting-announce" class="input-field" placeholder="เช่น: ปรับปรุงระบบชั่วคราวเวลา 03:00 น. หรือปล่อยว่างเพื่อปิด">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">* หากไม่ต้องการให้มีแถบประกาศ ให้ลบข้อความให้ว่างเปล่า</span>
+                        </div>
+
+                        <!-- Discord URL -->
+                        <div class="input-group">
+                            <label><i class="fa-brands fa-discord" style="color: #5865F2;"></i> Discord Invite URL</label>
+                            <input type="url" id="setting-discord" class="input-field" placeholder="https://discord.gg/vvkVDYeuhn" required>
+                        </div>
+
+                        <!-- Hub Loadstring -->
+                        <div class="input-group">
+                            <label><i class="fa-solid fa-code" style="color: var(--accent-cyan);"></i> Hub Main Loadstring</label>
+                            <textarea id="setting-loadstring" class="input-field" rows="3" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; resize: vertical;"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+                            <i class="fa-solid fa-floppy-disk"></i> บันทึกการตั้งค่าเว็บ
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB 4: LIVE STATS -->
+            <div id="tab-live" class="tab-content" style="display: none;">
+                <div class="glass" style="padding: 24px; max-width: 650px;">
+                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 6px;">ปรับแต่งข้อมูลสถิติสด (Live Counter)</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">กำหนดตัวเลขผู้ใช้ออนไลน์ และจำนวนเซิร์ฟเวอร์ที่แสดงหน้าเว็บ</p>
+
+                    <form onsubmit="handleSaveLive(event)">
+                        <div class="input-group">
+                            <label><i class="fa-solid fa-users"></i> จำนวนผู้เล่นออนไลน์ (Online Users)</label>
+                            <input type="number" id="live-online" class="input-field" min="1" max="9999" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label><i class="fa-solid fa-server"></i> จำนวนเซิร์ฟเวอร์ (Active Servers)</label>
+                            <input type="number" id="live-servers" class="input-field" min="1" max="9999" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+                            <i class="fa-solid fa-floppy-disk"></i> บันทึกสถิติสด
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB 5: SECURITY -->
+            <div id="tab-security" class="tab-content" style="display: none;">
+                <div class="glass" style="padding: 24px; max-width: 600px;">
+                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 6px;">เปลี่ยนรหัสผ่านแอดมิน</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">กำหนดรหัสผ่านเข้าหลังบ้านใหม่ เพื่อความปลอดภัย</p>
+
+                    <form onsubmit="handleChangePassword(event)">
+                        <div class="input-group">
+                            <label>รหัสผ่านปัจจุบัน (Current Password)</label>
+                            <input type="password" id="sec-current-pass" class="input-field" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>รหัสผ่านใหม่ (New Password)</label>
+                            <input type="password" id="sec-new-pass" class="input-field" minlength="6" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>ยืนยันรหัสผ่านใหม่</label>
+                            <input type="password" id="sec-confirm-pass" class="input-field" minlength="6" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+                            <i class="fa-solid fa-shield-halved"></i> อัปเดตรหัสผ่าน
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Add/Edit Game Modal -->
+    <div id="game-modal" class="modal-overlay">
+        <div class="glass modal">
+            <div class="modal-header">
+                <h3 id="modal-title">เพิ่มแมพใหม่</h3>
+                <button onclick="closeModal('game-modal')" class="btn-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="handleSaveGameModal(event)">
+                <div class="input-group">
+                    <label>ชื่อแมพ (Game Name)</label>
+                    <input type="text" id="modal-game-name" class="input-field" placeholder="เช่น: Brookhaven RP" required>
+                </div>
+                <div class="input-group">
+                    <label>Roblox Place ID</label>
+                    <input type="number" id="modal-game-placeid" class="input-field" placeholder="เช่น: 4924922222" required>
+                </div>
+                <div class="input-group">
+                    <label>สถานะเริ่มต้น</label>
+                    <select id="modal-game-status" class="input-field">
+                        <option value="operational">🟢 พร้อมใช้งาน (Operational)</option>
+                        <option value="maintenance">🟡 กำลังปรับปรุง (Maintenance)</option>
+                        <option value="updating">🔵 รออัปเดต (Updating)</option>
+                        <option value="offline">🔴 ปิดใช้งาน (Offline)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>ข้อความสถานะ (Status Message)</label>
+                    <input type="text" id="modal-game-msg" class="input-field" placeholder="เช่น: พร้อมใช้งาน • Silent Aim & ESP">
+                </div>
+                <div class="input-group">
+                    <label>หมวดหมู่ (Category)</label>
+                    <input type="text" id="modal-game-cat" class="input-field" placeholder="Action / Roleplay">
+                </div>
+                <div class="input-group">
+                    <label>รูปภาพ Thumbnail (URL)</label>
+                    <input type="text" id="modal-game-thumb" class="input-field" placeholder="/games/example.png หรือ URL รูป">
+                </div>
+                <div class="input-group">
+                    <label>ฟีเจอร์เด่น (แยกบรรทัดละ 1 ข้อ)</label>
+                    <textarea id="modal-game-features" class="input-field" rows="3" placeholder="Auto Farm&#10;Player ESP&#10;Speed Hack"></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                    <button type="button" onclick="closeModal('game-modal')" class="btn btn-secondary">ยกเลิก</button>
+                    <button type="submit" class="btn btn-primary">บันทึกแมพ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast">
+        <i class="fa-solid fa-circle-check" style="color: var(--accent-green);" id="toast-icon"></i>
+        <span id="toast-msg">ดำเนินการสำเร็จ</span>
+    </div>
+
+    <script>
+        let currentAdminData = null;
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.innerText = message;
+            if (isError) {
+                toastIcon.className = 'fa-solid fa-triangle-exclamation';
+                toastIcon.style.color = 'var(--accent-red)';
+            } else {
+                toastIcon.className = 'fa-solid fa-circle-check';
+                toastIcon.style.color = 'var(--accent-green)';
+            }
+
+            toast.style.display = 'flex';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3500);
+        }
+
+        async function checkAuth() {
+            try {
+                const res = await fetch('/api/admin/me');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.ok && data.admin) {
+                        showDashboard(data);
+                        return;
+                    }
+                }
+            } catch (e) {}
+            showLogin();
+        }
+
+        function showLogin() {
+            document.getElementById('login-view').style.display = 'flex';
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('header-auth-bar').style.display = 'none';
+        }
+
+        function showDashboard(meData) {
+            document.getElementById('login-view').style.display = 'none';
+            document.getElementById('dashboard-view').style.display = 'block';
+            document.getElementById('header-auth-bar').style.display = 'flex';
+
+            if (meData && meData.uptime) {
+                const mins = Math.floor(meData.uptime / 60);
+                const hrs = Math.floor(mins / 60);
+                document.getElementById('stat-uptime').innerText = `Uptime: ${hrs > 0 ? hrs + 'h ' : ''}${mins % 60}m`;
+                document.getElementById('stat-mem').innerText = `${meData.memory.rssMB} MB`;
+            }
+
+            loadAdminData();
+            fetchBotLogs();
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('admin-pass').value;
+            const btn = document.getElementById('btn-login');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังตรวจสอบ...';
+
+            try {
+                const res = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: pass })
+                });
+                const data = await res.json();
+                if (res.ok && data.ok) {
+                    showToast('เข้าสู่ระบบสำเร็จ ยินดีต้อนรับแอดมิน');
+                    checkAuth();
+                } else {
+                    showToast(data.error || 'รหัสผ่านไม่ถูกต้อง', true);
+                }
+            } catch (err) {
+                showToast('เชื่อมต่อล้มเหลว: ' + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-key"></i> ยืนยันตัวตน (Unlock Console)';
+            }
+        }
+
+        async function handleLogout() {
+            try {
+                await fetch('/api/admin/logout', { method: 'POST' });
+            } catch (e) {}
+            showToast('ออกจากระบบแล้ว');
+            showLogin();
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            const targetTab = document.getElementById('tab-' + tabId);
+            if (targetTab) targetTab.style.display = 'block';
+
+            event.currentTarget.classList.add('active');
+        }
+
+        async function loadAdminData() {
+            try {
+                const res = await fetch('/api/admin/data');
+                if (!res.ok) throw new Error('Unauthorized');
+                const data = await res.json();
+                currentAdminData = data;
+
+                renderOverview(data);
+                renderMapsTable(data);
+                renderSettings(data);
+                renderLive(data);
+            } catch (err) {
+                showToast('ดึงข้อมูลระบบล้มเหลว: ' + err.message, true);
+            }
+        }
+
+        function renderOverview(data) {
+            const maps = data.site.maps || [];
+            const operationalCount = maps.filter(m => m.status === 'operational').length;
+            document.getElementById('stat-games').innerText = `${operationalCount} / ${maps.length}`;
+            document.getElementById('tab-maps-count').innerText = maps.length;
+
+            const online = data.live?.online || 15;
+            document.getElementById('stat-online').innerText = online;
+        }
+
+        function renderMapsTable(data) {
+            const tbody = document.getElementById('maps-table-body');
+            const maps = data.site.maps || [];
+
+            if (maps.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">ไม่มีข้อมูลแมพ</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = maps.map(m => {
+                const statusClass = `status-${m.status || 'operational'}`;
+                const placeId = (m.ids && m.ids[0]) ? m.ids[0] : '-';
+                const thumb = m.thumb || '/favicon-32.png?v=3';
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="game-cell">
+                                <img src="${thumb}" class="game-thumb" onerror="this.src='/favicon-32.png?v=3'">
+                                <div>
+                                    <div class="game-title">${m.name}</div>
+                                    <div class="game-sub">${m.key || ''}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><code style="color: var(--accent-cyan); font-family: 'JetBrains Mono';">${placeId}</code></td>
+                        <td>
+                            <span class="status-pill ${statusClass}">
+                                <i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i>
+                                ${m.status.toUpperCase()}
+                            </span>
+                        </td>
+                        <td style="max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); font-size: 0.82rem;">
+                            ${m.msg || '-'}
+                        </td>
+                        <td style="text-align: right;">
+                            <div style="display: inline-flex; gap: 6px;">
+                                <button onclick="quickSetStatus('${m.key}', '${placeId}', 'operational')" class="btn btn-secondary btn-sm" title="ตั้งเป็นพร้อมใช้งาน" style="color: var(--accent-green);">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                                <button onclick="quickSetStatus('${m.key}', '${placeId}', 'maintenance')" class="btn btn-secondary btn-sm" title="ตั้งเป็นปรับปรุง" style="color: var(--accent-amber);">
+                                    <i class="fa-solid fa-wrench"></i>
+                                </button>
+                                <button onclick="quickSetStatus('${m.key}', '${placeId}', 'updating')" class="btn btn-secondary btn-sm" title="ตั้งเป็นรออัปเดต" style="color: var(--accent-blue);">
+                                    <i class="fa-solid fa-arrow-rotate-right"></i>
+                                </button>
+                                <button onclick="deleteGame('${m.key}', '${placeId}')" class="btn btn-danger btn-sm" title="ลบแมพ">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function quickSetStatus(key, placeId, status) {
+            let msg = 'พร้อมใช้งาน';
+            if (status === 'maintenance') msg = 'กำลังปรับปรุงระบบชั่วคราว';
+            if (status === 'updating') msg = 'รออัปเดตแพตช์ใหม่';
+
+            try {
+                const res = await fetch('/api/admin/update-status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key, id: placeId, status, msg })
+                });
+                const data = await res.json();
+                if (data.ok) {
+                    showToast('เปลี่ยนสถานะเป็น ' + status.toUpperCase() + ' สำเร็จ');
+                    loadAdminData();
+                } else {
+                    showToast(data.error || 'เปลี่ยนสถานะล้มเหลว', true);
+                }
+            } catch (e) {
+                showToast('Error: ' + e.message, true);
+            }
+        }
+
+        async function deleteGame(key, placeId) {
+            if (!confirm(`คุณแน่ใจหรือไม่ว่าต้องการลบแมพ (${key}) ออกจากระบบ?`)) return;
+
+            try {
+                const res = await fetch('/api/admin/delete-game', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key, id: placeId })
+                });
+                const data = await res.json();
+                if (data.ok) {
+                    showToast('ลบแมพเรียบร้อยแล้ว');
+                    loadAdminData();
+                } else {
+                    showToast(data.error || 'ลบล้มเหลว', true);
+                }
+            } catch (e) {
+                showToast('Error: ' + e.message, true);
+            }
+        }
+
+        function renderSettings(data) {
+            const settings = data.site.settings || {};
+            document.getElementById('setting-announce').value = settings.announce || '';
+            document.getElementById('setting-discord').value = settings.discord || 'https://discord.gg/vvkVDYeuhn';
+            document.getElementById('setting-loadstring').value = settings.loadstring || '';
+        }
+
+        async function handleSaveSettings(e) {
+            e.preventDefault();
+            const announce = document.getElementById('setting-announce').value.trim() || null;
+            const discord = document.getElementById('setting-discord').value.trim();
+            const loadstring = document.getElementById('setting-loadstring').value.trim();
+
+            try {
+                const res = await fetch('/api/admin/save-settings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        settings: { announce, discord, loadstring },
+                        hub: { discord }
+                    })
+                });
+                const data = await res.json();
+                if (data.ok) {
+                    showToast('บันทึกการตั้งค่าเว็บสำเร็จ');
+                    loadAdminData();
+                } else {
+                    showToast(data.error || 'บันทึกล้มเหลว', true);
+                }
+            } catch (e) {
+                showToast('Error: ' + e.message, true);
+            }
+        }
+
+        function renderLive(data) {
+            const live = data.live || {};
+            document.getElementById('live-online').value = live.online || 15;
+            document.getElementById('live-servers').value = live.servers || 15;
+        }
+
+        async function handleSaveLive(e) {
+            e.preventDefault();
+            const online = Number(document.getElementById('live-online').value) || 15;
+            const servers = Number(document.getElementById('live-servers').value) || 15;
+
+            try {
+                const res = await fetch('/api/admin/save-live', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ online, servers })
+                });
+                const data = await res.json();
+                if (data.ok) {
+                    showToast('บันทึกสถิติสดสำเร็จ');
+                    loadAdminData();
+                } else {
+                    showToast(data.error || 'บันทึกล้มเหลว', true);
+                }
+            } catch (e) {
+                showToast('Error: ' + e.message, true);
+            }
+        }
+
+        async function fetchBotLogs() {
+            const el = document.getElementById('terminal-logs');
+            el.innerText = 'กำลังดึง Logs ล่าสุด...';
+            try {
+                const res = await fetch('/api/admin/logs');
+                const data = await res.json();
+                if (data.ok && Array.isArray(data.logs)) {
+                    el.innerText = data.logs.join('\n');
+                    el.scrollTop = el.scrollHeight;
+                } else {
+                    el.innerText = 'ไม่สามารถดึง Logs ได้: ' + (data.error || 'Unknown error');
+                }
+            } catch (e) {
+                el.innerText = 'เกิดข้อผิดพลาดในการดึง Logs: ' + e.message;
+            }
+        }
+
+        async function triggerRestart() {
+            if (!confirm('ยืนยันส่งคำสั่งรีสตาร์ทเซิร์ฟเวอร์ KrakenHub-Web บน Bot-Hosting?')) return;
+            try {
+                showToast('กำลังส่งคำสั่ง Restart ไปยัง Bot-Hosting...');
+                const res = await fetch('/api/admin/restart', { method: 'POST' });
+                const data = await res.json();
+                if (data.ok) {
+                    showToast('ส่งคำสั่งรีสตาร์ทสำเร็จ คอนเทนเนอร์กำลังบูตใหม่');
+                    setTimeout(fetchBotLogs, 4000);
+                } else {
+                    showToast(data.error || 'รีสตาร์ทไม่สำเร็จ', true);
+                }
+            } catch (e) {
+                showToast('Error: ' + e.message, true);
+            }
+        }
+
+        async function handleChangePassword(e) {
+            e.preventDefault();
+            const cur = document.getElementById('sec-current-pass').value;
+            const nw = document.getElementById('sec-new-pass').value;
+            const conf = document.getElementById('sec-confirm-pass').value;
+
+            if (nw !== conf) {
+                showToast('รหัสผ่านใหม่และการยืนยันไม่ตรงกัน', true);
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/admin/change-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ currentPassword: cur, newPassword: nw })
+                });
+                const data = await res.json();
+                if (data.ok) {
+                    showToast('เปลี่ยนรหัสผ่านสำเร็จแล้ว');
+                    document.getElementById('sec-current-pass').value = '';
+                    document.getElementById('sec-new-pass').value = '';
+                    document.getElementById('sec-confirm-pass').value = '';
+                } else {
+                    showToast(data.error || 'เปลี่ยนรหัสผ่านล้มเหลว', true);
+                }
+            } catch (e) {
+                showToast('Error: ' + e.message, true);
+            }
+        }
+
+        function openAddGameModal() {
+            document.getElementById('modal-title').innerText = 'เพิ่มแมพใหม่เข้าระบบ';
+            document.getElementById('modal-game-name').value = '';
+            document.getElementById('modal-game-placeid').value = '';
+            document.getElementById('modal-game-msg').value = 'พร้อมใช้งาน';
+            document.getElementById('modal-game-features').value = '';
+            document.getElementById('game-modal').classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        async function handleSaveGameModal(e) {
+            e.preventDefault();
+            const name = document.getElementById('modal-game-name').value.trim();
+            const placeId = document.getElementById('modal-game-placeid').value.trim();
+            const status = document.getElementById('modal-game-status').value;
+            const msg = document.getElementById('modal-game-msg').value.trim();
+            const cat = document.getElementById('modal-game-cat').value.trim() || 'General';
+            const thumb = document.getElementById('modal-game-thumb').value.trim() || '/favicon-32.png?v=3';
+            const features = document.getElementById('modal-game-features').value.split('\n').map(s => s.trim()).filter(Boolean);
+
+            const mapObj = {
+                name,
+                placeId,
+                status,
+                msg,
+                thumb,
+                features
+            };
+
+            const gameObj = {
+                name,
+                placeId: Number(placeId),
+                status,
+                statusText: msg,
+                category: cat,
+                image: thumb,
+                features
+            };
+
+            try {
+                const res = await fetch('/api/admin/save-game', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ map: mapObj, game: gameObj })
+                });
+                const data = await res.json();
+                if (data.ok) {
+                    showToast('เพิ่มแมพเรียบร้อยแล้ว');
+                    closeModal('game-modal');
+                    loadAdminData();
+                } else {
+                    showToast(data.error || 'เพิ่มแมพล้มเหลว', true);
+                }
+            } catch (e) {
+                showToast('Error: ' + e.message, true);
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+</body>
+</html>
+
